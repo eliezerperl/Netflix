@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {
   children?: React.ReactNode;
@@ -8,9 +9,9 @@ type Props = {
 const Header = ({ children, className }: Props) => {
   return (
     <nav className={`${className} flex justify-between p-3`}>
-      <a href="/" className="flex">
+      <Link to="/" className="flex">
         <img width={90} src="/netflix.svg" alt="Netflix" />
-      </a>
+      </Link>
       {children}
     </nav>
   );

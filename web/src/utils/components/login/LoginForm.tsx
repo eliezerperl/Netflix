@@ -1,24 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { USER_SIGNIN } from '@/utils/actions/Action';
+import { USER_SIGNIN } from '@/utils/actions/Actions';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { axios, useNavigate, useState } from '@/utils/imports';
+import { axios, useNavigate } from '@/utils/imports';
 
 const LoginForm = () => {
   const { dispatch: storeDispatch } = useStoreContext();
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
-  });
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    setCredentials({
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
-    });
 
     try {
       //dispatch get request
@@ -29,7 +20,7 @@ const LoginForm = () => {
       //dispatch get succes
       localStorage.setItem('userInfo', JSON.stringify(data));
       storeDispatch({ type: USER_SIGNIN, payload: data });
-      navigate('/home');
+      navigate('/browse');
     } catch (error) {
       //dispatch get fail
       console.log(error);

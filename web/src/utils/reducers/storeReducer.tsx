@@ -1,20 +1,17 @@
-import { USER_SIGNIN, USER_SIGNOUT } from '../actions/Action';
-import { State } from '@/models/state';
-import { UserDTO } from '@/models/userDTO';
+import { USER_SIGNIN, USER_SIGNOUT } from '../actions/Actions';
+import { ActionType, Store } from '@/models/store';
 
-// type ActionType = {
-//   type: string;
-//   payload?: UserDTO;
-// };
-
-const storeReducer = (state: State, action) => {
+const storeReducer = (state: Store, action: ActionType): Store => {
   switch (action.type) {
     case USER_SIGNIN:
-      return { ...state, userInfo: action.payload };
+      return {
+        ...state,
+        state: { userInfo: action.payload || state.state.userInfo },
+      };
     case USER_SIGNOUT:
       return {
         ...state,
-        userInfo: null,
+        state: { userInfo: null },
       };
 
     default:

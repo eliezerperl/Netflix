@@ -1,5 +1,5 @@
-import { State } from '@/models/state';
-import { GET_FAIL, GET_REQUEST, GET_SUCCESS } from '../actions/Action';
+import { State } from '@/models/store';
+import { GET_FAIL, GET_REQUEST, GET_SUCCESS } from '../actions/Actions';
 
 const fetchReducer = (state: State, action) => {
   switch (action.type) {
