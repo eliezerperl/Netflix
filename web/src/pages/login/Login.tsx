@@ -1,4 +1,4 @@
-import LoginContainer from '@/utils/components/login/LoginContainer';
+import LoginContainer from '@/pages/login/LoginContainer';
 import AuthLayout from '@/utils/components/shared/AuthLayout';
 
 const Login = () => {

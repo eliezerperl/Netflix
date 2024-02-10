@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import RegisterContainer from '@/utils/components/register/RegisterContainer';
+import RegisterContainer from '@/pages/register/RegisterContainer';
 import AuthLayout from '@/utils/components/shared/AuthLayout';
 
 const Register = () => {
