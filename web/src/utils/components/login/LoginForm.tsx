@@ -1,8 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { USER_SIGNIN } from '@/utils/actions/Action';
+import { useStoreContext } from '@/utils/context/StoreContext';
 import { axios, useNavigate, useState } from '@/utils/imports';
 
 const LoginForm = () => {
+  const { dispatch: storeDispatch } = useStoreContext();
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     email: '',
@@ -18,13 +21,17 @@ const LoginForm = () => {
     });
 
     try {
+      //dispatch get request
       const { data } = await axios.post('/api/v1/users/signin', {
         email: e.currentTarget.email.value,
         password: e.currentTarget.password.value,
       });
-      console.log(data);
+      //dispatch get succes
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      storeDispatch({ type: USER_SIGNIN, payload: data });
       navigate('/home');
     } catch (error) {
+      //dispatch get fail
       console.log(error);
     }
   };

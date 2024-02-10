@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import axios from 'axios';
 import App from './App.tsx';
 import './index.css';
+import { axios } from '@/utils/imports.ts';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
