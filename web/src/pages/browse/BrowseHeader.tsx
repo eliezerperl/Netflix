@@ -31,12 +31,12 @@ const BrowseHeader = () => {
     <Header className="h-20">
       <div className="flex items-center gap-2">
         <Accordion type="single" collapsible>
-          <AccordionItem value="item-1" className="flex gap-2">
+          <AccordionItem value="item-1" className="flex pl-2">
             <AccordionTrigger>
               <Search />
             </AccordionTrigger>
             <AccordionContent>
-              <Input className="border-none" />
+              <Input className="border-none" placeholder="Titles, genres" />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
