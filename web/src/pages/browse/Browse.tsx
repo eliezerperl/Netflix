@@ -1,6 +1,7 @@
 import { useStoreContext } from '@/utils/context/StoreContext';
 import BrowseHeader from './BrowseHeader';
 import { useEffect, useNavigate } from '@/utils/imports';
+import BrowseHero from './BrowseHero';
 
 const Browse = () => {
   const { state } = useStoreContext();
@@ -13,6 +14,7 @@ const Browse = () => {
   return (
     <>
       <BrowseHeader />
+      <BrowseHero/>
     </>
   );
 };

@@ -31,7 +31,7 @@ const BrowseHeader = () => {
     <Header className="h-20">
       <div className="flex items-center gap-2">
         <Accordion type="single" collapsible>
-          <AccordionItem value="item-1" className="flex pl-2">
+          <AccordionItem value="item-1" className="flex data-[state=open]:border border-red-600 data-[state=open]:pl-2">
             <AccordionTrigger>
               <Search />
             </AccordionTrigger>
