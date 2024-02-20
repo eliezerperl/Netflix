@@ -9,6 +9,7 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   createContext,
   useContext,
@@ -32,4 +33,7 @@ export {
   useNavigate,
   useParams,
   toast,
+  useForm,
 };
+
+export type { SubmitHandler };

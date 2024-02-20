@@ -27,9 +27,6 @@
   width: max-content;
   background-color: var(--tooltip-color);
   font-size: 10px;
-  /* transform: translateY(-100%) scale(var(--scale)); */
-  /* transition: 150ms transform; */
-  /* transform-origin: bottom center; */
 }
 
 .tooltip::after {
@@ -44,4 +41,22 @@
 .tooltip:hover::before,
 .tooltip:hover::after {
   --scale: 1;
+}
+
+.inputSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.errorInput {
+  border-color: var(--error-color) !important;
+}
+
+.errorSpan {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(100%);
+  color: var(--error-color);
 }

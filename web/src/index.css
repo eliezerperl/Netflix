@@ -34,6 +34,8 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --error-color: rgb(232, 25, 25);
   }
 
   .dark {

@@ -28,14 +28,14 @@ const BrowseItem = ({ content }: Props) => {
         <CardContent className="flex aspect-square items-center justify-center">
           {!hovered ? (
             <img
-              // onMouseEnter={() => setHovered(true)}
-              className='hover:transform transition-transform duration-500 hover:scale-150 hover:z-10'
+              onMouseEnter={() => setHovered(true)}
+              // className='hover:transform transition-transform duration-500 hover:scale-150 hover:z-10'
               src={content.imgThumb}
               alt={content.title}
             />
           ) : (
             <div
-              // onMouseLeave={() => setHovered(false)}
+              onMouseLeave={() => setHovered(false)}
               className="absolute top-0">
               <ContentPlayer contentURL={content.trailer} />
               <div className="absolute bottom-0 h-9 w-full bg-black flex justify-between">
