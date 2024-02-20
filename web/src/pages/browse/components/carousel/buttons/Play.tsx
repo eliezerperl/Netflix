@@ -1,7 +1,7 @@
 import { Content } from '@/models/content';
 import { PlayIcon } from 'lucide-react';
 import { useNavigate } from '@/utils/imports';
-import ActionBtnWrapper from './ActionBtnWrapper';
+import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
 
 type Props = {
   contentToPlay: Content;

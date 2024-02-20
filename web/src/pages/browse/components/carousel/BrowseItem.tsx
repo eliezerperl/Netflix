@@ -1,12 +1,13 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Content } from '@/models/content';
-import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useState } from '@/utils/imports';
+import { useStoreContext } from '@/utils/context/StoreContext';
+import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import AddToMyList from './buttons/AddToMyList';
 import DeleteFromMyList from './buttons/DeleteFromMyList';
-import { useStoreContext } from '@/utils/context/StoreContext';
 import Play from './buttons/Play';
-import { TrashIcon } from 'lucide-react';
+import Info from './buttons/Info';
+import Like from './buttons/Like';
 
 type Props = {
   content: Content;
@@ -35,27 +36,20 @@ const BrowseItem = ({ content }: Props) => {
             />
           ) : (
             <div
-              onMouseLeave={() => setHovered(false)}
+              // onMouseLeave={() => setHovered(false)}
               className="absolute top-0">
               <ContentPlayer contentURL={content.trailer} />
-              <div className="absolute bottom-0 h-9 w-full bg-black flex justify-between">
-                <div className="flex gap-1 p-1">
+              <div className="absolute bottom-0 h-9 w-full bg-black flex justify-between p-1">
+                <div className="flex gap-1">
                   <Play contentToPlay={content} />
                   {myList.some((item) => item.title === content.title) ? (
                     <DeleteFromMyList contentToDelete={content} />
                   ) : (
                     <AddToMyList contentToAdd={content} />
                   )}
+                  <Like contentToLike={content} />
                 </div>
-                <div
-                  onClick={() => {
-                    console.log(myList);
-                    console.log(content);
-                    console.log(myList.includes(content));
-                  }}
-                  className="border border-gray-400 rounded-full size-fit p-1 m-1">
-                  <TrashIcon size={16} strokeWidth={1.5} color="white" />
-                </div>
+                <Info contentToShow={content} />
               </div>
             </div>
           )}

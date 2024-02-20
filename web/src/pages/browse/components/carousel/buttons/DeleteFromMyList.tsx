@@ -1,8 +1,8 @@
 import { Content } from '@/models/content';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { MinusIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { toast } from '@/utils/imports';
-import ActionBtnWrapper from './ActionBtnWrapper';
+import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
 import { REMOVED_FROM_LIST } from '@/utils/actions/Actions';
 
 type Props = {
@@ -24,9 +24,9 @@ const DeleteFromMyList = ({ contentToDelete }: Props) => {
   return (
     <>
       <ActionBtnWrapper
-        tooltipText="Remove From List"
+        tooltipText="Remove from My List"
         onClick={() => del(contentToDelete)}>
-        <MinusIcon size={16} strokeWidth={1.5} color="white" />
+        <CheckIcon size={16} strokeWidth={1.5} color="white" />
       </ActionBtnWrapper>
     </>
   );

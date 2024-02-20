@@ -2,7 +2,7 @@ import { Content } from '@/models/content';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { toast } from '@/utils/imports';
 import { PlusIcon } from 'lucide-react';
-import ActionBtnWrapper from './ActionBtnWrapper';
+import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
 import { ADDED_TO_LIST } from '@/utils/actions/Actions';
 
 type Props = {
@@ -22,8 +22,10 @@ const AddToMyList = ({ contentToAdd }: Props) => {
 
   return (
     <>
-      <ActionBtnWrapper tooltipText='Add To List' onClick={() => add(contentToAdd)}>
-        <PlusIcon size={16} strokeWidth={1.5} color='white' />
+      <ActionBtnWrapper
+        tooltipText="Add to My List"
+        onClick={() => add(contentToAdd)}>
+        <PlusIcon size={16} strokeWidth={1.5} color="white" />
       </ActionBtnWrapper>
     </>
   );
