@@ -31,7 +31,7 @@ const BrowseItemsCollection = () => {
       setContent({ allContent: data, films: movies, series: shows });
     };
     getContent();
-  }, [state.userInfo?.token]);
+  }, []);
 
   return (
     <>

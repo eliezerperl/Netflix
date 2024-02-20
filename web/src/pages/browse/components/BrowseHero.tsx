@@ -22,7 +22,7 @@ const BrowseHero = ({ contentTitle }: Props) => {
       setContent(content);
     };
     getContent();
-  }, [contentTitle, state.userInfo?.token]);
+  }, [contentTitle]);
 
   return (
     <div className="w-full h-full relative">
