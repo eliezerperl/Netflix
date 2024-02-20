@@ -4,7 +4,7 @@ import AuthLayout from '@/utils/components/shared/AuthLayout';
 const Login = () => {
   return (
     <div>
-      <AuthLayout
+      <AuthLayout className='bg-hero'
         footerChildren={
           <>
             <a href="">Contact us</a>

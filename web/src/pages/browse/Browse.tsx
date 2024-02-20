@@ -1,20 +1,22 @@
 import { useStoreContext } from '@/utils/context/StoreContext';
-import BrowseHeader from './BrowseHeader';
 import { useEffect, useNavigate } from '@/utils/imports';
-import BrowseHero from './BrowseHero';
+import BrowseItemsCollection from './BrowseItemsCollection';
+import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 
 const Browse = () => {
   const { state } = useStoreContext();
+  const { userInfo } = state;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!state.userInfo) navigate('/login');
-  }, [navigate, state.userInfo]);
+    if (!userInfo) navigate('/login');
+  }, [navigate, userInfo]);
 
   return (
     <>
-      <BrowseHeader />
-      <BrowseHero/>
+      <BrowseLayout contentTitle="Rick and Morty">
+        <BrowseItemsCollection />
+      </BrowseLayout>
     </>
   );
 };

@@ -1,5 +1,7 @@
-export type UserDTO ={
-  username: string,
-  email: string,
-  profilePicture: string
-}
+export type UserDTO = {
+  _id: string;
+  username: string;
+  email: string;
+  profilePicture: string;
+  token: string;
+};

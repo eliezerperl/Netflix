@@ -23,8 +23,8 @@ export const getSeries = async (req, res) => {
 };
 
 export const getContentByTitle = async (req, res) => {
-  const { title } = req.body;
-  const { item } = await Content.find({
+  const { title } = req.params;
+  const item = await Content.find({
     title,
   });
   if (!item) res.status(404).send();

@@ -5,6 +5,7 @@ import AuthLayout from '@/utils/components/shared/AuthLayout';
 const Register = () => {
   return (
     <AuthLayout
+      className="bg-hero"
       headerChildren={
         <Button className="bg-red-600" asChild>
           <a href="/login">Sign In</a>

@@ -10,7 +10,12 @@ dotenv.config();
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-app.use(cors()); // does nothing at the moment
+const corsOptions = {
+  origin: ['http://localhost:5173'],
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json()); // parses JSONs
 app.use(express.urlencoded({ extended: false })); //this is common practice for urlencoded
 // these three lines are boilerplate
@@ -28,7 +33,7 @@ app.use((err, req, res, next) => {
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
-    app.listen(PORT, function () {
+    app.listen(PORT, () => {
       console.log('listening on ' + PORT);
     });
   })
