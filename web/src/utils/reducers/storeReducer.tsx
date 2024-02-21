@@ -6,12 +6,15 @@ const storeReducer = (state: Store, action: ActionType): Store => {
     case USER_SIGNIN:
       return {
         ...state,
-        state: { userInfo: action.payload || state.state.userInfo, myList: state.state.myList },
+        state: {
+          userInfo: action.payload || state.state.userInfo,
+          myList: state.state.myList,
+        },
       };
     case USER_SIGNOUT:
       return {
         ...state,
-        state: { userInfo: null, myList: state.state.myList },
+        state: { userInfo: null, myList: [] },
       };
 
     default:

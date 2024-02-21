@@ -1,8 +1,8 @@
-import { isTokenInvalid } from '@/lib/utils';
+import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 import { Content } from '@/models/content';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { axios, useEffect, useState } from '@/utils/imports';
+import { toast, useEffect, useState } from '@/utils/imports';
 
 type Props = {
   contentTitle?: string;
@@ -15,15 +15,16 @@ const BrowseHero = ({ contentTitle }: Props) => {
 
   useEffect(() => {
     const getContent = async () => {
-      if (userInfo && isTokenInvalid(userInfo.token)) return;
-
-      const { data } = await axios.get(`/api/v1/content/${contentTitle}`, {
-        headers: {
-          Authorization: `Bearer ${userInfo?.token}`,
-        },
-      });
-      const content: Content = data[0];
-      setContent(content);
+      try {
+        const data = await requestContent(userInfo, contentTitle);
+        if (data) {
+          const content: Content = data[0];
+          setContent(content);
+        }
+      } catch (error) {
+        const axiosError = error as AxiosError<CustomError>;
+        toast.error(getError(axiosError));
+      }
     };
     getContent();
   }, [contentTitle, userInfo, userInfo?.token]);

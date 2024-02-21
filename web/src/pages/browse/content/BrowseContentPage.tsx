@@ -1,26 +1,30 @@
-import { axios, useEffect, useParams, useState } from '@/utils/imports';
+import { toast, useEffect, useParams, useState } from '@/utils/imports';
 import BrowseHeader from '../components/header/BrowseHeader';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { Content } from '@/models/content';
 import BrowseFooter from '../components/footer/BrowseFooter';
+import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 
 const BrowseContentPage = () => {
   const { state } = useStoreContext();
+  const { userInfo } = state;
   const [content, setContent] = useState<Content>();
   const { title } = useParams();
 
   useEffect(() => {
     const getContent = async () => {
-      const { data } = await axios.get(`/api/v1/content/${title}`, {
-        headers: {
-          Authorization: `Bearer ${state.userInfo?.token}`,
-        },
-      });
-      setContent(data[0]);
+      try {
+        const data = await requestContent(userInfo, title);
+
+        if (data) setContent(data[0]);
+      } catch (error) {
+        const axiosError = error as AxiosError<CustomError>;
+        toast.error(getError(axiosError));
+      }
     };
     getContent();
-  }, [state.userInfo?.token, title]);
+  }, [title, userInfo]);
 
   return (
     <>

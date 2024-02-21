@@ -5,6 +5,7 @@ import BrowseFooter from '@/pages/browse/components/footer/BrowseFooter';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { useEffect, useNavigate } from '@/utils/imports';
 import { isTokenInvalid } from '@/lib/utils';
+import { USER_SIGNOUT } from '@/utils/actions/Actions';
 
 type Props = {
   contentTitle?: string;
@@ -17,16 +18,20 @@ const BrowseLayout = ({
   children,
   componentWitouthHero,
 }: Props) => {
-  const { state } = useStoreContext();
+  const { state, dispatch } = useStoreContext();
   const { userInfo } = state;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userInfo?.token) navigate('/login');
+    if (!userInfo?.token) {
+      navigate('/login');
+      return;
+    }
 
-    const isExpired: boolean = isTokenInvalid(userInfo!.token);
-    if (isExpired) navigate('/login');
-  }, [navigate, userInfo]);
+      const isExpired: boolean = isTokenInvalid(userInfo.token);
+      if (isExpired) dispatch({ type: USER_SIGNOUT });
+
+  }, [dispatch, navigate, userInfo]);
 
   return (
     <>

@@ -1,9 +1,14 @@
-import { axios, useEffect, useState } from '@/utils/imports';
+import { toast, useEffect, useState } from '@/utils/imports';
 import { Content } from '@/models/content';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 import ContentCollection from '../components/ContentCollection';
-import { isTokenInvalid } from '@/lib/utils';
+import {
+  AxiosError,
+  CustomError,
+  getError,
+  requestContent,
+} from '@/lib/utils';
 
 const SeriesPage = () => {
   const { state } = useStoreContext();
@@ -19,23 +24,25 @@ const SeriesPage = () => {
 
   useEffect(() => {
     const getContent = async () => {
-      if (userInfo && isTokenInvalid(userInfo.token)) return;
+      try {
+        const data = await requestContent(userInfo, 'series');
 
-      const { data } = await axios.get(`/api/v1/content/series`, {
-        headers: {
-          Authorization: `Bearer ${userInfo?.token}`,
-        },
-      });
-      const content: Content[] = data;
-      const randomIndex = Math.floor(Math.random() * content.length);
-      const random = content[randomIndex];
-      setRandomSeries(random);
+        if (data) {
+          const content: Content[] = data;
+          const randomIndex = Math.floor(Math.random() * content.length);
+          const random = content[randomIndex];
+          setRandomSeries(random);
 
-      const topSeries: Content[] = data.slice(-10);
-      setSeriesCarousels({
-        allSeries: data,
-        topRated: topSeries,
-      });
+          const topSeries: Content[] = data.slice(-10);
+          setSeriesCarousels({
+            allSeries: data,
+            topRated: topSeries,
+          });
+        }
+      } catch (error) {
+        const axiosError = error as AxiosError<CustomError>;
+        toast.error(getError(axiosError));
+      }
     };
 
     getContent();

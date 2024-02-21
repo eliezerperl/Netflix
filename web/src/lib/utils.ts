@@ -1,7 +1,9 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { UserDTO } from '@/models/userDTO';
+import { Content } from '@/models/content';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -29,6 +31,21 @@ export const isTokenInvalid = (token: string): boolean => {
   const isExpired = new Date() > new Date(decoded.exp * 1000);
   console.log('expired? ' + isExpired);
   return isExpired;
+};
+
+export const requestContent = async (
+  userInfo: UserDTO | null,
+  apiRoute?: string | undefined
+): Promise<Content[] | undefined> => {
+  if (!userInfo) return;
+  if (userInfo && isTokenInvalid(userInfo.token)) return;
+
+  const { data } = await axios.get(`/api/v1/content/${apiRoute}`, {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  });
+  return data;
 };
 
 export type { AxiosError };
