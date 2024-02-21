@@ -1,29 +1,24 @@
 import { useStoreContext } from '@/utils/context/StoreContext';
 import BrowseItems from '../components/carousel/BrowseItems';
-import BrowseHeader from '../components/header/BrowseHeader';
-import BrowseFooter from '../components/footer/BrowseFooter';
+import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 
 const MyListPage = () => {
   const { state } = useStoreContext();
   const { myList } = state;
   return (
     <>
-      <BrowseHeader />
-      <div className="h-screen px-8 pt-24">
-        <span className="text-4xl">My List</span>
-
+      <BrowseLayout componentWitouthHero>
         <div
-          className={`${
-            myList.length === 0 && 'h-full flex items-center justify-center'
-          }`}>
+          className={` h-fit p-24 flex flex-col 
+            `}>
+            <div className="text-4xl">My List</div>
           {myList.length === 0 ? (
-            <span>NO ITEMS IN YOUR LIST</span>
+            <div className='p-24'>NO ITEMS IN YOUR LIST</div>
           ) : (
-            <BrowseItems carouselContent={myList} />
+            <BrowseItems className='py-8 pb-72' carouselContent={myList} />
           )}
         </div>
-      </div>
-      <BrowseFooter />
+      </BrowseLayout>
     </>
   );
 };

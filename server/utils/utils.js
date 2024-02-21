@@ -5,7 +5,7 @@ export const generateToken = ({ _id, username, email, profilePicture }) => {
     { _id, username, email, profilePicture },
     process.env.JWT_SECRET,
     {
-      expiresIn: '7d',
+      expiresIn: '15m',
     }
   );
 };

@@ -1,28 +1,32 @@
+import { isTokenInvalid } from '@/lib/utils';
 import { Content } from '@/models/content';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { axios, useEffect, useState } from '@/utils/imports';
 
 type Props = {
-  contentTitle: string;
+  contentTitle?: string;
 };
 
 const BrowseHero = ({ contentTitle }: Props) => {
   const { state } = useStoreContext();
+  const { userInfo } = state;
   const [content, setContent] = useState<Content>();
 
   useEffect(() => {
     const getContent = async () => {
+      if (userInfo && isTokenInvalid(userInfo.token)) return;
+
       const { data } = await axios.get(`/api/v1/content/${contentTitle}`, {
         headers: {
-          Authorization: `Bearer ${state.userInfo?.token}`,
+          Authorization: `Bearer ${userInfo?.token}`,
         },
       });
       const content: Content = data[0];
       setContent(content);
     };
     getContent();
-  }, [contentTitle]);
+  }, [contentTitle, userInfo, userInfo?.token]);
 
   return (
     <div className="w-full h-full relative">

@@ -7,9 +7,10 @@ import { REMOVED_FROM_LIST } from '@/utils/actions/Actions';
 
 type Props = {
   contentToDelete: Content;
+  className?: string
 };
 
-const DeleteFromMyList = ({ contentToDelete }: Props) => {
+const DeleteFromMyList = ({ contentToDelete, className }: Props) => {
   const { state, dispatch } = useStoreContext();
   const { myList } = state;
 
@@ -24,6 +25,7 @@ const DeleteFromMyList = ({ contentToDelete }: Props) => {
   return (
     <>
       <ActionBtnWrapper
+      className={`${className}`}
         tooltipText="Remove from My List"
         onClick={() => del(contentToDelete)}>
         <CheckIcon size={16} strokeWidth={1.5} color="white" />

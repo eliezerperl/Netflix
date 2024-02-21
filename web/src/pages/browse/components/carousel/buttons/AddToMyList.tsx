@@ -7,9 +7,10 @@ import { ADDED_TO_LIST } from '@/utils/actions/Actions';
 
 type Props = {
   contentToAdd: Content;
+  className?: string;
 };
 
-const AddToMyList = ({ contentToAdd }: Props) => {
+const AddToMyList = ({ contentToAdd, className }: Props) => {
   const { state, dispatch } = useStoreContext();
   const { myList } = state;
 
@@ -23,6 +24,7 @@ const AddToMyList = ({ contentToAdd }: Props) => {
   return (
     <>
       <ActionBtnWrapper
+        className={`${className}`}
         tooltipText="Add to My List"
         onClick={() => add(contentToAdd)}>
         <PlusIcon size={16} strokeWidth={1.5} color="white" />

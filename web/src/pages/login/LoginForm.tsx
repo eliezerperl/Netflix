@@ -2,7 +2,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { USER_SIGNIN } from '@/utils/actions/Actions';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { SubmitHandler, axios, useForm, useNavigate } from '@/utils/imports';
+import {
+  SubmitHandler,
+  axios,
+  toast,
+  useForm,
+  useNavigate,
+} from '@/utils/imports';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import classNames from 'classnames';
@@ -35,6 +41,7 @@ const LoginForm = () => {
     } catch (error) {
       //dispatch get fail
       console.log(error);
+      toast.error('Wrong Credenetials');
     }
   };
 

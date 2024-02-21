@@ -24,7 +24,7 @@ const BrowseContentPage = () => {
 
   return (
     <>
-      {title && content && (
+      {content && (
         <>
           <BrowseHeader />
           <ContentPlayer contentURL={content?.movie} />

@@ -4,12 +4,14 @@ import { CheckCheckIcon } from 'lucide-react';
 
 type Props = {
   contentToDoubleLike: Content;
+  className?: string
 };
 
-const DoubleLike = ({ contentToDoubleLike }: Props) => {
+const DoubleLike = ({ contentToDoubleLike, className }: Props) => {
   return (
     <>
       <ActionBtnWrapper
+      className={`${className}`}
         tooltipText="Love this!"
         onClick={() =>
           console.log(`You really liked ${contentToDoubleLike.title}`)
