@@ -16,6 +16,11 @@ const storeReducer = (state: Store, action: ActionType): Store => {
         ...state,
         state: { userInfo: null, myList: [] },
       };
+    case 'TOKEN_TEST':
+      return {
+        ...state,
+        state: { userInfo: action.payload!, myList: [] },
+      };
 
     case REFRESH_TOKEN:
       if (action.payload) {

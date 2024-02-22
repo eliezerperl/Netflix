@@ -87,7 +87,21 @@ const BrowseHeaderIcons = () => {
           <DropdownMenuItem onClick={() => console.log(state)}>
             Print State
           </DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              storeDispatch({
+                type: 'TOKEN_TEST',
+                payload: {
+                  _id: '65c63e95377de65503bd20c0', // Provide a default value or handle it appropriately
+                  username: 'Eliezer Per',
+                  email: 'eliezerperl7@gmail.com',
+                  profilePicture: undefined,
+                  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
+                },
+              });
+            }}>
+            change Token to invalid user data
+          </DropdownMenuItem>
           <DropdownMenuItem>Subscription</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex justify-center">
