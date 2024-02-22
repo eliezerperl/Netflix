@@ -7,7 +7,7 @@ const MyListPage = () => {
   const { myList } = state;
   return (
     <>
-      <BrowseLayout componentWitouthHero>
+      <BrowseLayout WithoutHero>
         <div
           className={` h-fit p-24 flex flex-col 
             `}>

@@ -7,6 +7,7 @@ import RegisterForm from '@/pages/register/RegisterForm';
 import FilmsPage from '@/pages/browse/films/FilmsPage';
 import MyListPage from '@/pages/browse/myList/MyListPage';
 import BrowseContentPage from '@/pages/browse/content/BrowseContentPage';
+import Search from '@/pages/search/Search';
 
 const CustomRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const CustomRoutes = () => {
         <Route path="/browse/series" element={<SeriesPage />}></Route>
         <Route path="/browse/films" element={<FilmsPage />}></Route>
         <Route path="/browse/my-list" element={<MyListPage />}></Route>
+        <Route path="/search" element={<Search />}></Route>
       </Routes>
     </BrowserRouter>
   );

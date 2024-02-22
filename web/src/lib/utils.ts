@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import axios, { AxiosError } from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { UserDTO } from '@/models/userDTO';
 import { Content } from '@/models/content';
 
@@ -22,10 +22,22 @@ export const getError = (err: CustomError) => {
     : err.message;
 };
 
-export const isTokenInvalid = (token: string): boolean => {
-  const decoded = jwtDecode(token);
+export const isTokenInvalid = (user: UserDTO): boolean => {
+  type JwtPayloadWithUser = JwtPayload & UserDTO;
+  const decoded: JwtPayloadWithUser = jwtDecode(user.token);
   if (!decoded.exp) throw new Error('No valid token');
 
+  const isEqual: boolean =
+    user._id === decoded._id &&
+    user.username === decoded.username &&
+    user.email === decoded.email &&
+    user.profilePicture === decoded.profilePicture;
+  //data check
+  if (!isEqual) {
+    console.log('User properties dont match those in decoded.');
+    return true;
+  }
+  //Expiry Check
   const isExpired = new Date() > new Date(decoded.exp * 1000);
   return isExpired;
 };
@@ -35,7 +47,7 @@ export const requestContent = async (
   apiRoute?: string | undefined
 ): Promise<Content[] | undefined> => {
   if (!userInfo) return;
-  if (userInfo && isTokenInvalid(userInfo.token)) return;
+  if (userInfo && isTokenInvalid(userInfo)) return;
 
   if (!apiRoute) apiRoute = '';
   const { data } = await axios.get(`/api/v1/content/${apiRoute}`, {
@@ -52,7 +64,10 @@ export const refreshToken = async (user: UserDTO): Promise<UserDTO> => {
   const { data } = await axios.post(
     '/api/v1/users/refresh-token',
     {
-      userWithoutToken,
+      _id: userWithoutToken._id,
+      username: userWithoutToken.username,
+      email: userWithoutToken.email,
+      profilePicture: userWithoutToken.profilePicture,
     },
     {
       headers: {
@@ -63,7 +78,6 @@ export const refreshToken = async (user: UserDTO): Promise<UserDTO> => {
   const { newToken } = data;
 
   const userWithNewToken = { ...userWithoutToken, token: newToken };
-  console.log(userWithNewToken)
   localStorage.setItem('userInfo', JSON.stringify(userWithNewToken));
   return userWithNewToken;
 };

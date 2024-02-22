@@ -16,14 +16,10 @@ import { REFRESH_TOKEN, USER_SIGNOUT } from '@/utils/actions/Actions';
 type Props = {
   contentTitle?: string;
   children?: React.ReactNode;
-  componentWitouthHero?: boolean;
+  WithoutHero?: boolean;
 };
 
-const BrowseLayout = ({
-  contentTitle,
-  children,
-  componentWitouthHero,
-}: Props) => {
+const BrowseLayout = ({ contentTitle, children, WithoutHero }: Props) => {
   const { state, dispatch } = useStoreContext();
   const { userInfo } = state;
   const navigate = useNavigate();
@@ -48,16 +44,20 @@ const BrowseLayout = ({
       navigate('/login');
       return;
     }
-
-    const isExpired: boolean = isTokenInvalid(userInfo.token);
-    if (isExpired) dispatch({ type: USER_SIGNOUT });
+    try {
+      const isInvalid: boolean = isTokenInvalid(userInfo);
+      if (isInvalid) dispatch({ type: USER_SIGNOUT });
+    } catch (error) {
+      const err = error as Error;
+      toast.error(err.message);
+    }
   }, [dispatch, navigate, userInfo]);
 
   return (
     <>
       <BrowseHeader />
 
-      {!componentWitouthHero && <BrowseHero contentTitle={contentTitle} />}
+      {!WithoutHero && <BrowseHero contentTitle={contentTitle} />}
 
       {children}
 
