@@ -45,12 +45,10 @@ const BrowseItem = ({ content }: Props) => {
                   <Play contentToPlay={content} />
                   {myList.some((item) => item.title === content.title) ? (
                     <DeleteFromMyList
-                      // className={`${likeHovered && 'invisible'}`}
                       contentToDelete={content}
                     />
                   ) : (
                     <AddToMyList
-                      // className={`${likeHovered && 'invisible'}`}
                       contentToAdd={content}
                     />
                   )}
