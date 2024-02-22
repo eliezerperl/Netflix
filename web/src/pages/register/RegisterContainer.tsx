@@ -1,21 +1,38 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ChevronRight } from 'lucide-react';
-import { useNavigate } from '@/utils/imports';
+import { SubmitHandler, useForm, useNavigate } from '@/utils/imports';
+import { z } from 'zod';
+import classNames from 'classnames';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const UserStartRegistrationSchema = z.object({
+  email: z.coerce
+    .string()
+    .min(1, { message: 'Please enter an email' })
+    .email({ message: 'Invalid email address' }),
+});
+
+type UserStartRegistrationSchemaType = z.infer<
+  typeof UserStartRegistrationSchema
+>;
 
 const RegisterContainer = () => {
   const navigate = useNavigate();
 
-  const registerRedirect = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!e.currentTarget.email.value) {
-      console.log('error');
-      return;
-    }
-
-    navigate(`/register?email=${e.currentTarget.email.value}`);
+  const onSubmit: SubmitHandler<UserStartRegistrationSchemaType> = async ({
+    email,
+  }) => {
+    navigate(`/register?email=${email}`);
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserStartRegistrationSchemaType>({
+    resolver: zodResolver(UserStartRegistrationSchema),
+  });
 
   return (
     <>
@@ -27,8 +44,15 @@ const RegisterContainer = () => {
         <p className="text-center font-semibold">
           Ready to watch? Enter your email to create or restart your membership.
         </p>
-        <form className="flex gap-3" onSubmit={registerRedirect}>
-          <Input placeholder="Email" name="email" />
+        <form className="flex gap-3 relative" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            placeholder="Email"
+            className={classNames({ ['errorInput']: errors.email })}
+            {...register('email')}
+          />
+          {errors.email && (
+            <span className={'errorSpan left-4'}>{errors.email.message}</span>
+          )}
           <Button className="bg-red-600" type="submit">
             Get Started <ChevronRight />
           </Button>

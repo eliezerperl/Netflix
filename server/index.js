@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import seedRouter from './routes/seedRouter.js';
 import dotenv from 'dotenv';
+import seedRouter from './routes/seedRouter.js';
 import userRouter from './routes/userRouter.js';
 import contentRouter from './routes/contentRouter.js';
 
@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const corsOptions = {
   origin: ['http://localhost:5173'],
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));

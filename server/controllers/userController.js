@@ -42,4 +42,23 @@ const signup = async (req, res) => {
   });
 };
 
-export { signin, signup };
+const refreshToken = async (req, res) => {
+  const { _id, username, email, profilePicture } = req.body;
+
+  const user = {
+    _id,
+    username,
+    email,
+    profilePicture,
+  };
+
+  if (user) {
+    res.status(200).send({
+      newToken: generateToken(user),
+    });
+    return;
+  }
+  res.status(401).send({ message: 'Invalid Request to Refresh Token' });
+};
+
+export { signin, signup, refreshToken };

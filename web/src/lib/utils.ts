@@ -26,10 +26,7 @@ export const isTokenInvalid = (token: string): boolean => {
   const decoded = jwtDecode(token);
   if (!decoded.exp) throw new Error('No valid token');
 
-  console.log('exp string ' + new Date(decoded.exp * 1000));
-  console.log('current date ' + new Date());
   const isExpired = new Date() > new Date(decoded.exp * 1000);
-  console.log('expired? ' + isExpired);
   return isExpired;
 };
 
@@ -47,6 +44,28 @@ export const requestContent = async (
     },
   });
   return data;
+};
+
+export const refreshToken = async (user: UserDTO): Promise<UserDTO> => {
+  const { token, ...userWithoutToken } = user;
+
+  const { data } = await axios.post(
+    '/api/v1/users/refresh-token',
+    {
+      userWithoutToken,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const { newToken } = data;
+
+  const userWithNewToken = { ...userWithoutToken, token: newToken };
+  console.log(userWithNewToken)
+  localStorage.setItem('userInfo', JSON.stringify(userWithNewToken));
+  return userWithNewToken;
 };
 
 export type { AxiosError };
