@@ -40,6 +40,7 @@ export const requestContent = async (
   if (!userInfo) return;
   if (userInfo && isTokenInvalid(userInfo.token)) return;
 
+  if (!apiRoute) apiRoute = '';
   const { data } = await axios.get(`/api/v1/content/${apiRoute}`, {
     headers: {
       Authorization: `Bearer ${userInfo.token}`,

@@ -17,7 +17,7 @@ module.exports = {
       },
     },
     extend: {
-      backgroundImage: (theme) => ({
+      backgroundImage: () => ({
         hero: "url('/IL_netflix.jpg')",
       }),
       colors: {
