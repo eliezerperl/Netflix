@@ -24,8 +24,6 @@ const BrowseHeaderIcons = () => {
 
   const signoutHandler = () => {
     storeDispatch({ type: USER_SIGNOUT });
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('myList');
   };
 
   return (
@@ -92,7 +90,7 @@ const BrowseHeaderIcons = () => {
               storeDispatch({
                 type: 'TOKEN_TEST',
                 payload: {
-                  _id: '65c63e95377de65503bd20c0', // Provide a default value or handle it appropriately
+                  _id: '65c63e95377de65503bd20c0',
                   username: 'Eliezer Per',
                   email: 'eliezerperl7@gmail.com',
                   profilePicture: undefined,

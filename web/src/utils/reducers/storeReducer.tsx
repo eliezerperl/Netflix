@@ -1,9 +1,14 @@
-import { REFRESH_TOKEN, USER_SIGNIN, USER_SIGNOUT } from '../actions/Actions';
+import {
+  REFRESH_TOKEN,
+  USER_SIGNIN,
+  USER_SIGNOUT,
+} from '../actions/Actions';
 import { ActionType, Store } from '@/models/store';
 
 const storeReducer = (state: Store, action: ActionType): Store => {
   switch (action.type) {
     case USER_SIGNIN:
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
       return {
         ...state,
         state: {
@@ -12,10 +17,13 @@ const storeReducer = (state: Store, action: ActionType): Store => {
         },
       };
     case USER_SIGNOUT:
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('myList');
       return {
         ...state,
         state: { userInfo: null, myList: [] },
       };
+
     case 'TOKEN_TEST':
       return {
         ...state,
@@ -26,7 +34,7 @@ const storeReducer = (state: Store, action: ActionType): Store => {
       if (action.payload) {
         return {
           ...state,
-          state: { userInfo: action.payload, myList: [] },
+          state: { userInfo: action.payload, myList: state.state.myList },
         };
       }
       return { ...state };

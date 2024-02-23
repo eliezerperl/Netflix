@@ -35,7 +35,6 @@ const LoginForm = () => {
         password,
       });
       //dispatch get succes
-      localStorage.setItem('userInfo', JSON.stringify(data));
       storeDispatch({ type: USER_SIGNIN, payload: data });
       navigate('/browse');
     } catch (error) {

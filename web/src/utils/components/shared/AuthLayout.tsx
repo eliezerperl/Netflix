@@ -1,6 +1,9 @@
+import { useStoreContext } from '@/utils/context/StoreContext';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import React from 'react';
+import { isTokenInvalid } from '@/lib/utils';
+import { useEffect, useNavigate } from '@/utils/imports';
 
 type AuthLayoutProps = {
   className?: string;
@@ -15,6 +18,14 @@ const AuthLayout = ({
   footerChildren,
   headerChildren,
 }: AuthLayoutProps) => {
+  const navigate = useNavigate();
+  const {state} = useStoreContext();
+  const {userInfo} = state
+
+  useEffect(() => {
+    if (userInfo && !isTokenInvalid(userInfo)) navigate('/browse')
+  }, [])
+  
   return (
     <div
       className={`${className} absolute inset-0 min-h-screen flex flex-col justify-between`}>
