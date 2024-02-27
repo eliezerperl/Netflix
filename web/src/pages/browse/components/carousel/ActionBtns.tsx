@@ -1,8 +1,8 @@
 import Play from './buttons/Play';
 import DeleteFromMyList from './buttons/DeleteFromMyList';
 import AddToMyList from './buttons/AddToMyList';
-import Like from './buttons/Like';
 import { Content } from '@/models/content';
+import LikeBtn from './buttons/LikeBtn';
 
 type Props = {
   content: Content;
@@ -20,7 +20,7 @@ const ActionBtns = ({ content, myList, size }: Props) => {
         ) : (
           <AddToMyList size={size} contentToAdd={content} />
         )}
-        <Like size={size} contentToLike={content} />
+        <LikeBtn size={size} contentToLike={content} />
       </div>
     </>
   );
