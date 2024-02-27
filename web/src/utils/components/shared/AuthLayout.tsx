@@ -6,15 +6,15 @@ import { isTokenInvalid } from '@/lib/utils';
 import { useEffect, useNavigate } from '@/utils/imports';
 
 type AuthLayoutProps = {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
   headerChildren?: React.ReactNode;
   footerChildren?: React.ReactNode;
 };
 
 const AuthLayout = ({
-  className,
   children,
+  className,
   footerChildren,
   headerChildren,
 }: AuthLayoutProps) => {
@@ -24,7 +24,7 @@ const AuthLayout = ({
 
   useEffect(() => {
     if (userInfo && !isTokenInvalid(userInfo)) navigate('/browse')
-  }, [])
+  }, [navigate, userInfo])
   
   return (
     <div

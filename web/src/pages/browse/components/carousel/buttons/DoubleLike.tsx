@@ -4,9 +4,10 @@ import { CheckCheckIcon } from 'lucide-react';
 
 type Props = {
   contentToDoubleLike: Content;
+  size?: number;
 };
 
-const DoubleLike = ({ contentToDoubleLike }: Props) => {
+const DoubleLike = ({ contentToDoubleLike, size }: Props) => {
   return (
     <>
       <ActionBtnWrapper
@@ -14,7 +15,7 @@ const DoubleLike = ({ contentToDoubleLike }: Props) => {
         onClick={() =>
           console.log(`You really liked ${contentToDoubleLike.title}`)
         }>
-        <CheckCheckIcon size={16} strokeWidth={1.5} color="white" />
+        <CheckCheckIcon size={size || 16} strokeWidth={1.5} color="white" />
       </ActionBtnWrapper>
     </>
   );

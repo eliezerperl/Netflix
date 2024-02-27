@@ -4,14 +4,15 @@ import { ThumbsDownIcon } from 'lucide-react';
 
 type Props = {
   contentToDislike: Content;
+  size?: number;
 };
 
-const DisLike = ({ contentToDislike }: Props) => {
+const DisLike = ({ contentToDislike, size }: Props) => {
   return (
     <ActionBtnWrapper
       tooltipText="Not for me"
       onClick={() => console.log(`You disliked ${contentToDislike.title}`)}>
-      <ThumbsDownIcon size={16} strokeWidth={1.5} color="white" />
+      <ThumbsDownIcon size={size || 16} strokeWidth={1.5} color="white" />
     </ActionBtnWrapper>
   );
 };
