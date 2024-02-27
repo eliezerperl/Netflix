@@ -6,9 +6,11 @@ import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
 type Props = {
   contentToPlay: Content;
   size?: number;
+  className?: string;
+  children?: React.ReactNode;
 };
 
-const Play = ({ contentToPlay, size }: Props) => {
+const Play = ({ contentToPlay, size, className, children }: Props) => {
   const navigate = useNavigate();
 
   const play = (content: Content) => {
@@ -18,9 +20,10 @@ const Play = ({ contentToPlay, size }: Props) => {
   return (
     <>
       <ActionBtnWrapper
-        className="bg-white"
+        className={`bg-white flex items-center ${className}`}
         onClick={() => play(contentToPlay)}>
         <PlayIcon size={size || 16} fill="black" />
+        {children}
       </ActionBtnWrapper>
     </>
   );

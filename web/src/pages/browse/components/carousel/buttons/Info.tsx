@@ -1,8 +1,9 @@
 import { Content } from '@/models/content';
 import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
-import { ChevronDownIcon } from 'lucide-react';
+import { ChevronDownIcon, XIcon } from 'lucide-react';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -14,9 +15,23 @@ import { useStoreContext } from '@/utils/context/StoreContext';
 
 type Props = {
   contentToShow: Content;
+  size?: number;
+  className?: string;
+  children?: React.ReactNode;
+  diffIcon?: boolean;
+  notTooltip?: boolean;
+  onClick?: () => void;
 };
 
-const Info = ({ contentToShow }: Props) => {
+const Info = ({
+  contentToShow,
+  size,
+  className,
+  children,
+  diffIcon,
+  notTooltip,
+  onClick,
+}: Props) => {
   const { state } = useStoreContext();
   const { myList } = state;
 
@@ -25,18 +40,40 @@ const Info = ({ contentToShow }: Props) => {
       <Dialog>
         <DialogTrigger>
           <ActionBtnWrapper
-            tooltipText="Episodes & Info"
-            onClick={() => console.log(contentToShow)}>
-            <ChevronDownIcon size={16} strokeWidth={1.5} color="white" />
+            className={className}
+            tooltipText={!notTooltip ? 'Episodes & Info' : ''}
+            onClick={() => {
+              console.log(contentToShow);
+            }}>
+            {children}
+            {!diffIcon && (
+              <ChevronDownIcon
+                size={size || 16}
+                strokeWidth={1.5}
+                color="white"
+              />
+            )}
           </ActionBtnWrapper>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader className="relative">
+            <DialogClose asChild>
+              <XIcon
+                size={18}
+                className="cursor-pointer absolute -right-3 -top-1 opacity-75 hover:opacity-100"
+                onClick={() => onClick && onClick()}
+              />
+            </DialogClose>
             <div>
               {<img src={contentToShow.imgThumb} alt={contentToShow.title} />}
             </div>
             <div className="bg-transparent absolute bottom-4 left-4 ">
-              <ActionBtns size={32} content={contentToShow} myList={myList} />
+              <ActionBtns
+                squarePlay
+                size={32}
+                content={contentToShow}
+                myList={myList}
+              />
             </div>
           </DialogHeader>
           <DialogTitle>{contentToShow.title}</DialogTitle>

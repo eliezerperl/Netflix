@@ -3,7 +3,7 @@ import { Content } from '@/models/content';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { toast, useEffect, useState } from '@/utils/imports';
-import ActionBtns from './carousel/ActionBtns';
+import HeroActionBtns from './HeroActionBtns';
 
 type Props = {
   contentTitle?: string;
@@ -11,7 +11,7 @@ type Props = {
 
 const BrowseHero = ({ contentTitle }: Props) => {
   const { state } = useStoreContext();
-  const { userInfo, myList } = state;
+  const { userInfo } = state;
   const [content, setContent] = useState<Content>();
 
   useEffect(() => {
@@ -33,8 +33,8 @@ const BrowseHero = ({ contentTitle }: Props) => {
   return (
     <div className="w-full h-full relative">
       {content && <ContentPlayer contentURL={content.trailer} />}
-      <span className="absolute bottom-10 left-10">
-        {content && <ActionBtns size={54} content={content} myList={myList} />}
+      <span className="absolute bottom-9 left-10">
+        {content && <HeroActionBtns size={54} content={content} />}
       </span>
       {/* Color Transition bottom of hero */}
       <div className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-black to-transparent"></div>
