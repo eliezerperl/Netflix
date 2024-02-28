@@ -22,16 +22,21 @@ const Header = ({ children, className }: Props) => {
 
   return (
     <nav
-      className={`flex justify-between py-5 px-10 fixed w-full z-10 bg-transparent ${className}`}>
-      <Link to={redirect} className="flex h-10">
-        <img width={90} src="/netflix.svg" alt="Netflix" />
-      </Link>
+      className={`flex items-center py-5 px-5  fixed w-full z-10 overflow-x-hidden ${
+        userInfo && 'bg-black'
+      } ${className}`}>
+      <section className="relative flex gap-2 w-full">
+        <Link to={redirect} className="flex h-10">
+          <img width={90} src="/netflix.svg" alt="Netflix" />
+        </Link>{' '}
+        {children}
+      </section>
+
       {showSignIn && (
         <Link to={'/login'}>
           <Button className="bg-red-600">Sign In</Button>
         </Link>
       )}
-      {children}
     </nav>
   );
 };
