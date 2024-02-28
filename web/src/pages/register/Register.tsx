@@ -1,28 +1,11 @@
-import { Button } from '@/components/ui/button';
 import RegisterContainer from '@/pages/register/RegisterContainer';
 import AuthLayout from '@/utils/components/shared/AuthLayout';
 
 const Register = () => {
   return (
     <AuthLayout
-      className="bg-hero"
-      headerChildren={
-        <Button className="bg-red-600" asChild>
-          <a href="/login">Sign In</a>
-        </Button>
-      }
-      footerChildren={
-        <>
-          <a href="">Contact us</a>
-          <a href="">Contact us</a>
-          <a href="">Contact us</a>
-          <a href="">Contact us</a>
-          <a href="">Contact us</a>
-        </>
-      }>
-      <section className="z-10">
+      className="bg-hero">
         <RegisterContainer />
-      </section>
     </AuthLayout>
   );
 };

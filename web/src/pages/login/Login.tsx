@@ -4,17 +4,8 @@ import AuthLayout from '@/utils/components/shared/AuthLayout';
 const Login = () => {
   return (
     <div>
-      <AuthLayout className='bg-hero'
-        footerChildren={
-          <>
-            <a href="">Contact us</a>
-            <a href="">Contact us</a>
-            <a href="">Contact us</a>
-            <a href="">Contact us</a>
-            <a href="">Contact us</a>
-          </>
-        }>
-        <div className="flex justify-center items-center">
+      <AuthLayout className='bg-hero'>
+        <div className="flex h-full justify-center items-center">
           <LoginContainer />
         </div>
       </AuthLayout>

@@ -55,13 +55,9 @@ const BrowseLayout = ({ contentTitle, children, WithoutHero }: Props) => {
 
   return (
     <>
-      <BrowseHeader />
-
       {!WithoutHero && <BrowseHero contentTitle={contentTitle} />}
 
       {children}
-
-      <BrowseFooter />
     </>
   );
 };

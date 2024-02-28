@@ -1,7 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ChevronRight } from 'lucide-react';
-import { SubmitHandler, useForm, useNavigate } from '@/utils/imports';
+import {
+  SubmitHandler,
+  axios,
+  toast,
+  useForm,
+  useNavigate,
+} from '@/utils/imports';
 import { z } from 'zod';
 import classNames from 'classnames';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,6 +29,16 @@ const RegisterContainer = () => {
   const onSubmit: SubmitHandler<UserStartRegistrationSchemaType> = async ({
     email,
   }) => {
+    //check if email exists in db
+    try {
+      await axios.post(`/api/v1/users/doesexist`, {
+        email,
+      });
+    } catch (error) {
+      toast.error(`${email} is already registered with an existing account`);
+      return;
+    }
+
     navigate(`/register?email=${email}`);
   };
 
@@ -36,7 +52,7 @@ const RegisterContainer = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-6 p-9">
+      <div className="flex flex-col items-center justify-center gap-6 p-9 z-10 h-full">
         <h1 className="text-3xl text-center font-bold">
           Unlimited movies, TV shows, and more
         </h1>

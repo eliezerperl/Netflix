@@ -2,7 +2,7 @@ import LoginForm from './LoginForm';
 
 const LoginContainer = () => {
   return (
-    <section className="bg-black opacity-70 flex flex-col gap-24 p-20 ">
+    <section className="bg-black opacity-70 flex flex-col gap-24 p-16 ">
       <LoginForm />
       <div>
         <span>New to Netflix? </span>

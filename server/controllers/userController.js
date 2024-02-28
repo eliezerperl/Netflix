@@ -42,6 +42,22 @@ const signup = async (req, res) => {
   });
 };
 
+const doesExist = async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email: email });
+
+  if (user) {
+    res.status(401).send({
+      email,
+    });
+  } else {
+    res.status(200).send({
+      email,
+    });
+  }
+};
+
 const refreshToken = async (req, res) => {
   const { _id, username, email, profilePicture } = req.body;
 
@@ -61,4 +77,4 @@ const refreshToken = async (req, res) => {
   res.status(401).send({ message: 'Invalid Request to Refresh Token' });
 };
 
-export { signin, signup, refreshToken };
+export { signin, signup, doesExist, refreshToken };

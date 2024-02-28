@@ -11,10 +11,8 @@ const Search = () => {
   const [content, setContent] = useState<Content[]>();
   const { search } = useLocation();
   const searchText = new URLSearchParams(search).get('q');
-  console.log(searchText);
 
   useEffect(() => {
-    console.log('in the search useeffect');
     const getContent = async () => {
       const { data } = await axios.get('/api/v1/content', {
         headers: {
@@ -29,7 +27,6 @@ const Search = () => {
   return (
     <>
       <BrowseLayout WithoutHero>
-        <section className="h-screen">
           <article className="grid grid-cols-4 gap-5 mt-20 mx-12">
             {content &&
               content.map((cont) => (
@@ -38,7 +35,6 @@ const Search = () => {
                 </div>
               ))}
           </article>
-        </section>
       </BrowseLayout>
     </>
   );
