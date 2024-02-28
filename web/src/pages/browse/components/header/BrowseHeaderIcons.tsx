@@ -13,14 +13,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Bell, Search } from 'lucide-react';
+import { Bell, Search, XIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { USER_SIGNOUT } from '@/utils/actions/Actions';
+import { useState, useEffect, useNavigate, useRef } from '@/utils/imports';
+import {} from 'react';
 
 const BrowseHeaderIcons = () => {
   const { state, dispatch: storeDispatch } = useStoreContext();
   const { userInfo } = state;
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState<string>('');
+
+  useEffect(() => {
+    if (searchText) navigate(`/search?q=${searchText}`);
+  }, [navigate, searchText]);
 
   const signoutHandler = () => {
     storeDispatch({ type: USER_SIGNOUT });
@@ -32,11 +43,25 @@ const BrowseHeaderIcons = () => {
         <AccordionItem
           value="item-1"
           className="flex data-[state=open]:border border-red-600 data-[state=open]:pl-2">
-          <AccordionTrigger>
+          <AccordionTrigger className="data-[state=open]:cursor-default">
             <Search />
           </AccordionTrigger>
-          <AccordionContent>
-            <Input className="border-none" placeholder="Titles, genres" />
+          <AccordionContent className="flex items-center">
+            <Input
+              ref={searchInputRef}
+              className="border-none"
+              placeholder="Titles, genres"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchText(e.target.value)
+              }
+            />
+            <XIcon
+              className="cursor-pointer mr-1"
+              onClick={() => {
+                if (searchInputRef.current) searchInputRef.current.value = '';
+                navigate(`/search`);
+              }}
+            />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -94,7 +119,8 @@ const BrowseHeaderIcons = () => {
                   username: 'Eliezer Per',
                   email: 'eliezerperl7@gmail.com',
                   profilePicture: undefined,
-                  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
+                  token:
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
                 },
               });
             }}>
