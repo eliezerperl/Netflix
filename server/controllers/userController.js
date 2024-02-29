@@ -75,6 +75,20 @@ const addToList = async (req, res) => {
   });
 };
 
+const removeFromList = async (req, res) => {
+  const { userId, content } = req.body;
+
+  console.log(userId);
+  console.log(content);
+  const newUser = await User.findByIdAndUpdate(userId, {
+    $pull: { list: { _id: content._id } },
+  });
+
+  res.status(200).send({
+    newUser,
+  });
+};
+
 const refreshToken = async (req, res) => {
   const { _id, username, email, profilePicture } = req.body;
 
@@ -94,4 +108,4 @@ const refreshToken = async (req, res) => {
   res.status(401).send({ message: 'Invalid Request to Refresh Token' });
 };
 
-export { signin, signup, doesExist, addToList, refreshToken };
+export { signin, signup, doesExist, addToList, removeFromList, refreshToken };

@@ -4,6 +4,7 @@ import { CheckIcon } from 'lucide-react';
 import { toast } from '@/utils/imports';
 import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
 import { REMOVED_FROM_LIST } from '@/utils/actions/Actions';
+import { removeFromList } from '@/lib/utils';
 
 type Props = {
   contentToDelete: Content;
@@ -18,7 +19,8 @@ const DeleteFromMyList = ({ contentToDelete, size }: Props) => {
     if (userInfo) {
       const indexToDelete = userInfo.list.indexOf(content);
       userInfo.list.splice(indexToDelete, 1);
-      dispatch({ type: REMOVED_FROM_LIST });
+      removeFromList(userInfo._id, content);
+      dispatch({ type: REMOVED_FROM_LIST, payload: userInfo });
       // localStorage.setItem('myList', JSON.stringify(userInfo.list));
       toast.success(`${content.title} has been removed from your list`);
     }

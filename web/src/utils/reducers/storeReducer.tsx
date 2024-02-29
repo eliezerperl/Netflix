@@ -1,6 +1,7 @@
 import {
   ADDED_TO_LIST,
   REFRESH_TOKEN,
+  REMOVED_FROM_LIST,
   USER_SIGNIN,
   USER_SIGNOUT,
 } from '../actions/Actions';
@@ -23,9 +24,8 @@ const storeReducer = (state: Store, action: ActionType): Store => {
         state: { userInfo: null },
       };
 
-    case ADDED_TO_LIST:
+    case ADDED_TO_LIST || REMOVED_FROM_LIST:
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
-
       return {
         ...state,
         state: {

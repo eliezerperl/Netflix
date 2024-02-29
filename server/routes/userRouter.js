@@ -4,6 +4,7 @@ import {
   addToList,
   doesExist,
   refreshToken,
+  removeFromList,
   signin,
   signup,
 } from '../controllers/userController.js';
@@ -14,6 +15,7 @@ userRouter.post('/signup', expressAsyncHandler(signup));
 userRouter.post('/signin', expressAsyncHandler(signin));
 userRouter.post('/doesexist', expressAsyncHandler(doesExist));
 userRouter.post('/addtolist', expressAsyncHandler(addToList));
+userRouter.post('/removefromlist', expressAsyncHandler(removeFromList));
 userRouter.post('/refresh-token', isAuth, expressAsyncHandler(refreshToken));
 
 export default userRouter;
