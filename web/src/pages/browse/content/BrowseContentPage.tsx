@@ -1,9 +1,7 @@
 import { toast, useEffect, useParams, useState } from '@/utils/imports';
-import BrowseHeader from '../components/header/BrowseHeader';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { Content } from '@/models/content';
-import BrowseFooter from '../components/footer/BrowseFooter';
 import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 
 const BrowseContentPage = () => {
@@ -30,9 +28,7 @@ const BrowseContentPage = () => {
     <>
       {content && (
         <>
-          <BrowseHeader />
           <ContentPlayer contentURL={content?.movie} />
-          <BrowseFooter />
         </>
       )}
     </>

@@ -1,7 +1,5 @@
 import BrowseHero from '@/pages/browse/components/BrowseHero';
-import BrowseHeader from '@/pages/browse/components/header/BrowseHeader';
 import React from 'react';
-import BrowseFooter from '@/pages/browse/components/footer/BrowseFooter';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { toast, useEffect, useNavigate } from '@/utils/imports';
 import {
