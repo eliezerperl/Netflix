@@ -22,10 +22,10 @@ const Header = ({ children, className }: Props) => {
 
   return (
     <nav
-      className={`flex items-center py-5 px-5  fixed w-full z-10 overflow-x-hidden ${
+      className={`flex items-center py-3 px-5  fixed w-full z-10 overflow-x-hidden ${
         userInfo && 'bg-black'
       } ${className}`}>
-      <section className="relative flex gap-2 w-full">
+      <section className="relative flex gap-2 w-full ">
         <Link to={redirect} className="flex h-10">
           <img width={90} src="/netflix.svg" alt="Netflix" />
         </Link>{' '}
