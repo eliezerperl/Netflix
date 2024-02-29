@@ -21,7 +21,6 @@ const DeleteFromMyList = ({ contentToDelete, size }: Props) => {
       userInfo.list.splice(indexToDelete, 1);
       removeFromList(userInfo._id, content);
       dispatch({ type: REMOVED_FROM_LIST, payload: userInfo });
-      // localStorage.setItem('myList', JSON.stringify(userInfo.list));
       toast.success(`${content.title} has been removed from your list`);
     }
   };

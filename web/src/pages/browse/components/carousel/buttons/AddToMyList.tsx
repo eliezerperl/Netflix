@@ -20,7 +20,6 @@ const AddToMyList = ({ contentToAdd, size }: Props) => {
       userInfo.list.push(content);
       addToList(userInfo._id, content);
       dispatch({ type: ADDED_TO_LIST, payload: userInfo });
-      // localStorage.setItem('myList', JSON.stringify(myList));
       toast.success(`${content.title} has been added to your list`);
     }
   };
