@@ -4,12 +4,10 @@ import storeReducer from '../reducers/storeReducer';
 import { Store } from '@/models/store';
 
 const user = localStorage.getItem('userInfo');
-const myList = localStorage.getItem('myList');
 
 const initialState: Store = {
   state: {
     userInfo: user ? JSON.parse(user) : null,
-    myList: myList ? JSON.parse(myList) : [],
   },
   dispatch: () => ({ type: '', payload: null }),
 };

@@ -12,7 +12,7 @@ type Props = {
 
 const BrowseItem = ({ content }: Props) => {
   const { state } = useStoreContext();
-  const { myList } = state;
+  const { userInfo } = state;
   const [hovered, setHovered] = useState<boolean>(false);
 
   return (
@@ -30,7 +30,9 @@ const BrowseItem = ({ content }: Props) => {
             <>
               <ContentPlayer contentURL={content.trailer} />
               <div className="absolute bottom-0 h-9 w-full bg-black flex justify-between p-1">
-                <ActionBtns content={content} myList={myList} />
+                {userInfo && (
+                  <ActionBtns content={content} myList={userInfo.list} />
+                )}
                 <Info
                   onClick={() => setHovered(false)}
                   contentToShow={content}

@@ -14,6 +14,7 @@ const signin = async (req, res) => {
         email: user.email,
         profilePicture: user.profilePicture,
         token: generateToken(user),
+        list: user.list,
       });
       return;
     }
@@ -29,6 +30,7 @@ const signup = async (req, res) => {
     email,
     password: bcrypt.hashSync(password),
     profilePicture,
+    list: [],
   });
 
   const user = await newUser.save();
@@ -39,6 +41,7 @@ const signup = async (req, res) => {
     email: user.email,
     profilePicture: user.profilePicture,
     token: generateToken(user),
+    list: user.list,
   });
 };
 
@@ -56,6 +59,20 @@ const doesExist = async (req, res) => {
       email,
     });
   }
+};
+
+const addToList = async (req, res) => {
+  const { userId, content } = req.body;
+
+  console.log(userId);
+  console.log(content);
+  const newUser = await User.findByIdAndUpdate(userId, {
+    $push: { list: content },
+  });
+
+  res.status(200).send({
+    newUser,
+  });
 };
 
 const refreshToken = async (req, res) => {
@@ -77,4 +94,4 @@ const refreshToken = async (req, res) => {
   res.status(401).send({ message: 'Invalid Request to Refresh Token' });
 };
 
-export { signin, signup, doesExist, refreshToken };
+export { signin, signup, doesExist, addToList, refreshToken };

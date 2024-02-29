@@ -4,7 +4,7 @@ import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 
 const MyListPage = () => {
   const { state } = useStoreContext();
-  const { myList } = state;
+  const { userInfo } = state;
   return (
     <>
       <BrowseLayout WithoutHero>
@@ -12,10 +12,17 @@ const MyListPage = () => {
           className={` h-fit p-24 flex flex-col 
             `}>
           <div className="text-4xl">My List</div>
-          {myList.length === 0 ? (
-            <div className=" p-40 pb-72">NO ITEMS IN YOUR LIST</div>
-          ) : (
-            <BrowseItems className="py-9 pb-72" carouselContent={myList} />
+          {userInfo && (
+            <>
+              {userInfo.list.length === 0 ? (
+                <div className=" p-40 pb-72">NO ITEMS IN YOUR LIST</div>
+              ) : (
+                <BrowseItems
+                  className="py-9 pb-72"
+                  carouselContent={userInfo.list}
+                />
+              )}
+            </>
           )}
         </div>
       </BrowseLayout>

@@ -4,6 +4,7 @@ import { toast } from '@/utils/imports';
 import { PlusIcon } from 'lucide-react';
 import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
 import { ADDED_TO_LIST } from '@/utils/actions/Actions';
+import { addToList } from '@/lib/utils';
 
 type Props = {
   contentToAdd: Content;
@@ -12,13 +13,16 @@ type Props = {
 
 const AddToMyList = ({ contentToAdd, size }: Props) => {
   const { state, dispatch } = useStoreContext();
-  const { myList } = state;
+  const { userInfo } = state;
 
   const add = (content: Content) => {
-    myList.push(content);
-    dispatch({ type: ADDED_TO_LIST });
-    localStorage.setItem('myList', JSON.stringify(myList));
-    toast.success(`${content.title} has been added to your list`);
+    if (userInfo) {
+      userInfo.list.push(content);
+      addToList(userInfo._id, content);
+      dispatch({ type: ADDED_TO_LIST, payload: userInfo });
+      // localStorage.setItem('myList', JSON.stringify(myList));
+      toast.success(`${content.title} has been added to your list`);
+    }
   };
 
   return (

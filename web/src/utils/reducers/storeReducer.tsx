@@ -1,4 +1,5 @@
 import {
+  ADDED_TO_LIST,
   REFRESH_TOKEN,
   USER_SIGNIN,
   USER_SIGNOUT,
@@ -13,28 +14,36 @@ const storeReducer = (state: Store, action: ActionType): Store => {
         ...state,
         state: {
           userInfo: action.payload || state.state.userInfo,
-          myList: state.state.myList,
         },
       };
     case USER_SIGNOUT:
       localStorage.removeItem('userInfo');
-      localStorage.removeItem('myList');
       return {
         ...state,
-        state: { userInfo: null, myList: [] },
+        state: { userInfo: null },
+      };
+
+    case ADDED_TO_LIST:
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        state: {
+          userInfo: action.payload || state.state.userInfo,
+        },
       };
 
     case 'TOKEN_TEST':
       return {
         ...state,
-        state: { userInfo: action.payload!, myList: [] },
+        state: { userInfo: action.payload! },
       };
 
     case REFRESH_TOKEN:
       if (action.payload) {
         return {
           ...state,
-          state: { userInfo: action.payload, myList: state.state.myList },
+          state: { userInfo: action.payload },
         };
       }
       return { ...state };

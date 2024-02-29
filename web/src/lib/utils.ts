@@ -82,4 +82,16 @@ export const refreshToken = async (user: UserDTO): Promise<UserDTO> => {
   return userWithNewToken;
 };
 
+export const addToList = async (userId: string, content: Content) => {
+  try {
+    const { data } = await axios.post('api/v1/users/addtolist', {
+      userId,
+      content,
+    });
+    console.log(data);
+  } catch (error) {
+    console.log(error)
+  }
+};
+
 export type { AxiosError };

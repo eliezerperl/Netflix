@@ -33,7 +33,7 @@ const Info = ({
   onClick,
 }: Props) => {
   const { state } = useStoreContext();
-  const { myList } = state;
+  const { userInfo } = state;
 
   return (
     <>
@@ -68,12 +68,12 @@ const Info = ({
               {<img src={contentToShow.imgThumb} alt={contentToShow.title} />}
             </div>
             <div className="bg-transparent absolute bottom-4 left-4 ">
-              <ActionBtns
+              {userInfo && <ActionBtns
                 squarePlay
                 size={32}
                 content={contentToShow}
-                myList={myList}
-              />
+                myList={userInfo.list}
+              />}
             </div>
           </DialogHeader>
           <DialogTitle>{contentToShow.title}</DialogTitle>

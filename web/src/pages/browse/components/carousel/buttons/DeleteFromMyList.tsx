@@ -12,14 +12,16 @@ type Props = {
 
 const DeleteFromMyList = ({ contentToDelete, size }: Props) => {
   const { state, dispatch } = useStoreContext();
-  const { myList } = state;
+  const { userInfo } = state;
 
   const del = (content: Content) => {
-    const indexToDelete = myList.indexOf(content);
-    myList.splice(indexToDelete, 1);
-    dispatch({ type: REMOVED_FROM_LIST });
-    localStorage.setItem('myList', JSON.stringify(myList));
-    toast.success(`${content.title} has been removed from your list`);
+    if (userInfo) {
+      const indexToDelete = userInfo.list.indexOf(content);
+      userInfo.list.splice(indexToDelete, 1);
+      dispatch({ type: REMOVED_FROM_LIST });
+      // localStorage.setItem('myList', JSON.stringify(userInfo.list));
+      toast.success(`${content.title} has been removed from your list`);
+    }
   };
 
   return (
