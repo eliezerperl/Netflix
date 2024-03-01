@@ -36,47 +36,26 @@ const BrowseHeaderIcons = () => {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState<string>('');
 
-  const [prevSearchText, setPrevSearchText] = useState('');
+  useEffect(() => {
+
+    if (pathname.startsWith('/search') && !searchInputRef.current?.value)
+      navigate('/search');
+
+    if (searchText) {
+      navigate(`/search?q=${searchText}`);
+    }
+  }, [searchText]);
 
   useEffect(() => {
-    console.log('Previous search text:', prevSearchText);
-    console.log('Current search text:', searchText);
-    setPrevSearchText(searchText);
     if (
-      pathname.startsWith('/search') &&
-      !searchText &&
-      searchText.length !== 0
-    )
-      navigate(`/search`);
-    if (!pathname.startsWith('/search') && !prevSearchText && searchText)
-      navigate(`/search?q=${searchText}`);
-
-    console.log(
-      searchText && (searchText !== prevSearchText || !prevSearchText)
-    );
-    console.log(pathname);
-    console.log(searchText !== prevSearchText);
-    console.log(!prevSearchText);
-    console.log(searchText.length);
-
-    if (searchText && (searchText !== prevSearchText || !prevSearchText)) {
-      navigate(`/search?q=${searchText}`);
+      !pathname.startsWith('/search') &&
+      accordionBtnRef.current &&
+      accordionBtnRef.current.getAttribute('data-state') === 'open'
+    ) {
+      setSearchText('');
+      accordionBtnRef.current.click();
     }
-
-    if (!pathname.startsWith('/search')) {
-      // setSearchText('');
-      // if (searchInputRef.current) searchInputRef.current.value = '';
-
-      if (
-        !pathname.startsWith('/search') &&
-        searchText.length !== 0 &&
-        accordionBtnRef.current?.getAttribute('data-state') === 'open'
-      ) {
-        accordionBtnRef.current?.click();
-        console.log('closed');
-      }
-    }
-  }, [pathname, searchText]);
+  }, [pathname]);
 
   const signoutHandler = () => {
     storeDispatch({ type: USER_SIGNOUT });
@@ -106,7 +85,7 @@ const BrowseHeaderIcons = () => {
               className="cursor-pointer mr-1"
               onClick={() => {
                 if (searchInputRef.current) searchInputRef.current.value = '';
-                // setSearchText('');
+                setSearchText('');
                 navigate(`/search`);
               }}
             />
