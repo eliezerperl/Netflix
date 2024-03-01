@@ -2,6 +2,7 @@ import { useStoreContext } from '@/utils/context/StoreContext';
 import React from 'react';
 import { isTokenInvalid } from '@/lib/utils';
 import { useEffect, useNavigate } from '@/utils/imports';
+import { USER_SIGNOUT } from '@/utils/actions/Actions';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -12,12 +13,18 @@ type AuthLayoutProps = {
 
 const AuthLayout = ({ children, className }: AuthLayoutProps) => {
   const navigate = useNavigate();
-  const { state } = useStoreContext();
+  const { state, dispatch } = useStoreContext();
   const { userInfo } = state;
 
   useEffect(() => {
-    if (userInfo && !isTokenInvalid(userInfo)) navigate('/browse');
-  }, [navigate, userInfo]);
+    if (userInfo) {
+      if (isTokenInvalid(userInfo)) {
+        dispatch({ type: USER_SIGNOUT });
+      } else {
+        navigate('/browse');
+      }
+    }
+  }, [dispatch, navigate, userInfo]);
 
   return (
     <div

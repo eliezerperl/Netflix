@@ -1,8 +1,9 @@
 import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 import BrowseItem from '../browse/components/carousel/BrowseItem';
-import { axios, useEffect, useLocation, useState } from '@/utils/imports';
+import { toast, useEffect, useLocation, useState } from '@/utils/imports';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { Content } from '@/models/content';
+import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 
 const Search = () => {
   const { state } = useStoreContext();
@@ -14,27 +15,39 @@ const Search = () => {
 
   useEffect(() => {
     const getContent = async () => {
-      const { data } = await axios.get('/api/v1/content', {
-        headers: {
-          Authorization: `Bearer ${userInfo?.token}`,
-        },
-      });
-      setContent(data);
+      try {
+        const data = await requestContent(userInfo);
+        if (searchText && data) {
+          const regulatedSearctText = searchText.toLowerCase();
+          console.log(regulatedSearctText)
+          const filteredData = data.filter(
+            (content) =>
+              content.genre.toLowerCase().includes(regulatedSearctText) ||
+              content.title.toLowerCase().includes(regulatedSearctText)
+          );
+          console.log(filteredData)
+          setContent(filteredData);
+        } else setContent(data)
+      } catch (error) {
+        const axiosError = error as AxiosError<CustomError>;
+        toast.error(getError(axiosError));
+      }
     };
+
     getContent();
-  }, [searchText, userInfo?.token]);
+  }, [searchText, userInfo]);
 
   return (
     <>
       <BrowseLayout WithoutHero>
-          <article className="grid grid-cols-4 gap-5 mt-20 mx-12">
-            {content &&
-              content.map((cont) => (
-                <div key={cont.title}>
-                  <BrowseItem content={cont} />
-                </div>
-              ))}
-          </article>
+        <article className="grid grid-cols-4 gap-5 mt-20 mx-12">
+          {content &&
+            content.map((cont) => (
+              <div key={cont.title}>
+                <BrowseItem content={cont} />
+              </div>
+            ))}
+        </article>
       </BrowseLayout>
     </>
   );

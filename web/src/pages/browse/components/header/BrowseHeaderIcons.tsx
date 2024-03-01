@@ -17,21 +17,66 @@ import { Bell, Search, XIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { USER_SIGNOUT } from '@/utils/actions/Actions';
-import { useState, useEffect, useNavigate, useRef } from '@/utils/imports';
-import {} from 'react';
+import {
+  useState,
+  useEffect,
+  useNavigate,
+  useRef,
+  useLocation,
+} from '@/utils/imports';
 
 const BrowseHeaderIcons = () => {
   const { state, dispatch: storeDispatch } = useStoreContext();
   const { userInfo } = state;
 
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const accordionBtnRef = useRef<HTMLButtonElement>(null);
 
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState<string>('');
 
+  const [prevSearchText, setPrevSearchText] = useState('');
+
   useEffect(() => {
-    if (searchText) navigate(`/search?q=${searchText}`);
-  }, [navigate, searchText]);
+    console.log('Previous search text:', prevSearchText);
+    console.log('Current search text:', searchText);
+    setPrevSearchText(searchText);
+    if (
+      pathname.startsWith('/search') &&
+      !searchText &&
+      searchText.length !== 0
+    )
+      navigate(`/search`);
+    if (!pathname.startsWith('/search') && !prevSearchText && searchText)
+      navigate(`/search?q=${searchText}`);
+
+    console.log(
+      searchText && (searchText !== prevSearchText || !prevSearchText)
+    );
+    console.log(pathname);
+    console.log(searchText !== prevSearchText);
+    console.log(!prevSearchText);
+    console.log(searchText.length);
+
+    if (searchText && (searchText !== prevSearchText || !prevSearchText)) {
+      navigate(`/search?q=${searchText}`);
+    }
+
+    if (!pathname.startsWith('/search')) {
+      // setSearchText('');
+      // if (searchInputRef.current) searchInputRef.current.value = '';
+
+      if (
+        !pathname.startsWith('/search') &&
+        searchText.length !== 0 &&
+        accordionBtnRef.current?.getAttribute('data-state') === 'open'
+      ) {
+        accordionBtnRef.current?.click();
+        console.log('closed');
+      }
+    }
+  }, [pathname, searchText]);
 
   const signoutHandler = () => {
     storeDispatch({ type: USER_SIGNOUT });
@@ -43,7 +88,9 @@ const BrowseHeaderIcons = () => {
         <AccordionItem
           value="item-1"
           className="flex data-[state=open]:border border-red-600 data-[state=open]:pl-2">
-          <AccordionTrigger className="data-[state=open]:cursor-default">
+          <AccordionTrigger
+            ref={accordionBtnRef}
+            className="data-[state=open]:cursor-default">
             <Search />
           </AccordionTrigger>
           <AccordionContent className="flex items-center">
@@ -59,6 +106,7 @@ const BrowseHeaderIcons = () => {
               className="cursor-pointer mr-1"
               onClick={() => {
                 if (searchInputRef.current) searchInputRef.current.value = '';
+                // setSearchText('');
                 navigate(`/search`);
               }}
             />
@@ -112,17 +160,20 @@ const BrowseHeaderIcons = () => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              storeDispatch({
-                type: 'TOKEN_TEST',
-                payload: {
-                  _id: '65c63e95377de65503bd20c0',
-                  username: 'Eliezer Per',
-                  email: 'eliezerperl7@gmail.com',
-                  profilePicture: undefined,
-                  token:
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
-                },
-              });
+              if (userInfo) {
+                storeDispatch({
+                  type: 'TOKEN_TEST',
+                  payload: {
+                    _id: '65c63e95377de65503bd20c0',
+                    username: 'Eliezer Per',
+                    email: 'eliezerperl7@gmail.com',
+                    profilePicture: undefined,
+                    list: userInfo.list,
+                    token:
+                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
+                  },
+                });
+              }
             }}>
             change Token to invalid user data
           </DropdownMenuItem>
