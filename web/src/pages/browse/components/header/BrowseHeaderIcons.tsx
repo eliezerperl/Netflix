@@ -44,6 +44,7 @@ const BrowseHeaderIcons = () => {
     if (searchText) {
       navigate(`/search?q=${searchText}`);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   useEffect(() => {
