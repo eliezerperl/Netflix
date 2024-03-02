@@ -4,7 +4,8 @@ import App from './App.tsx';
 import './index.css';
 import { axios } from '@/utils/imports.ts';
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL =
+  'https://elisnetflixapi.netlify.app/.netlify/functions';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
