@@ -1,22 +1,25 @@
 import { createContext, useContext, useReducer } from '@/utils/imports';
 import React from 'react';
 import storeReducer from '../reducers/storeReducer';
-import { State } from '@/models/store';
+import { Store } from '@/models/store';
 
 const user = localStorage.getItem('userInfo');
 
-const initialState: State = {
-  userInfo: user ? JSON.parse(user) : null,
+const initialState: Store = {
+  state: {
+    userInfo: user ? JSON.parse(user) : null,
+  },
+  dispatch: () => ({ type: '', payload: null }),
 };
 
-const StoreContext = createContext<State>(initialState);
+const StoreContext = createContext<Store>(initialState);
 
 type Props = {
   children: React.ReactNode;
 };
 export const StoreProvider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(storeReducer, initialState);
-  const body = { ...state, dispatch };
+  const [state, dispatch] = useReducer(storeReducer, initialState.state);
+  const body = { state, dispatch };
 
   return <StoreContext.Provider value={body}>{children}</StoreContext.Provider>;
 };
