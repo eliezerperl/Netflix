@@ -2,10 +2,12 @@ import { Dispatch } from 'react';
 import { UserDTO } from './userDTO';
 
 export type Store = {
-  state: {
-    userInfo: UserDTO | null;
-  };
+  state: State;
   dispatch: Dispatch<ActionType>;
+};
+
+export type State = {
+  userInfo: UserDTO | null;
 };
 
 export type ActionType = {
