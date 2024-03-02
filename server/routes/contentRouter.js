@@ -14,4 +14,4 @@ contentRouter.get('/movies', isAuth, expressAsyncHandler(getMovies));
 contentRouter.get('/series', isAuth, expressAsyncHandler(getSeries));
 contentRouter.get('/:title', isAuth, expressAsyncHandler(getContentByTitle));
 
-export default contentRouter;
+module.exports = contentRouter

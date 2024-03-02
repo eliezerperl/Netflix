@@ -18,4 +18,4 @@ userRouter.post('/addtolist', expressAsyncHandler(addToList));
 userRouter.post('/removefromlist', expressAsyncHandler(removeFromList));
 userRouter.post('/refresh-token', isAuth, expressAsyncHandler(refreshToken));
 
-export default userRouter;
+module.exports = userRouter;
