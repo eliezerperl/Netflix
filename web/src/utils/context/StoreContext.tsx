@@ -1,18 +1,15 @@
 import { createContext, useContext, useReducer } from '@/utils/imports';
 import React from 'react';
 import storeReducer from '../reducers/storeReducer';
-import { Store } from '@/models/store';
+import { State } from '@/models/store';
 
 const user = localStorage.getItem('userInfo');
 
-const initialState: Store = {
-  state: {
-    userInfo: user ? JSON.parse(user) : null,
-  },
-  dispatch: () => ({ type: '', payload: null }),
+const initialState: State = {
+  userInfo: user ? JSON.parse(user) : null,
 };
 
-const StoreContext = createContext<Store>(initialState);
+const StoreContext = createContext<State>(initialState);
 
 type Props = {
   children: React.ReactNode;
