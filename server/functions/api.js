@@ -4,7 +4,7 @@ import serverless from 'serverless-http';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import seedRouter from '../routes/seedRouter.js';
+// import seedRouter from '../routes/seedRouter.js';
 import userRouter from '../routes/userRouter.js';
 import contentRouter from '../routes/contentRouter.js';
 
@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 const corsOptions = {
-  origin: ['http://localhost:5173'],
+  origin: ['http://localhost:5173', 'https://elisnetflix.netlify.app'],
 };
 
 app.use(cors(corsOptions));
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false })); //this is common practice for 
 
 //middleware
 //routes:
-app.use('/.netlify/functions/api/v1/seed', seedRouter);
+// app.use('/.netlify/functions/api/v1/seed', seedRouter);
 app.use('/.netlify/functions/api/v1/users', userRouter);
 app.use('/.netlify/functions/api/v1/content', contentRouter);
 
