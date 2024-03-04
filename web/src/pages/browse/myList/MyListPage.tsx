@@ -11,7 +11,7 @@ const MyListPage = () => {
       <Title title='My List'/>
       <BrowseLayout WithoutHero>
         <div
-          className={` h-fit p-24 flex flex-col 
+          className={`p-24 flex flex-col 
             `}>
           <div className="text-4xl">My List</div>
           {userInfo && (

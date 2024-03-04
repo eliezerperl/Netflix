@@ -1,7 +1,7 @@
 import BrowseHero from '@/pages/browse/components/BrowseHero';
 import React from 'react';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { toast, useEffect, useNavigate } from '@/utils/imports';
+import { toast, useEffect, useLocation, useNavigate } from '@/utils/imports';
 import {
   AxiosError,
   CustomError,
@@ -10,6 +10,7 @@ import {
   refreshToken,
 } from '@/lib/utils';
 import { REFRESH_TOKEN, USER_SIGNOUT } from '@/utils/actions/Actions';
+import Footer from '../footer/Footer';
 
 type Props = {
   contentTitle?: string;
@@ -21,6 +22,7 @@ const BrowseLayout = ({ contentTitle, children, WithoutHero }: Props) => {
   const { state, dispatch } = useStoreContext();
   const { userInfo } = state;
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const saveNewToken = async () => {
@@ -53,9 +55,14 @@ const BrowseLayout = ({ contentTitle, children, WithoutHero }: Props) => {
 
   return (
     <>
-      {!WithoutHero && <BrowseHero contentTitle={contentTitle} />}
-
-      {children}
+      <div
+        className={`h-full ${
+          pathname === '/browse/my-list' && ' flex flex-col justify-between'
+        }`}>
+        {!WithoutHero && <BrowseHero contentTitle={contentTitle} />}
+        {children}
+        <Footer />
+      </div>
     </>
   );
 };

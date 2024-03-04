@@ -9,7 +9,6 @@ import MyListPage from '@/pages/browse/myList/MyListPage';
 import BrowseContentPage from '@/pages/browse/content/BrowseContentPage';
 import Search from '@/pages/search/Search';
 import BrowseHeader from '@/pages/browse/components/header/BrowseHeader';
-import Footer from './components/footer/Footer';
 import { useStoreContext } from './context/StoreContext';
 import Header from './components/header/Header';
 
@@ -31,7 +30,6 @@ const CustomRoutes = () => {
         <Route path="/browse/my-list" element={<MyListPage />}></Route>
         <Route path="/search" element={<Search />}></Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 };
