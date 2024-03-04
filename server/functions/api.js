@@ -39,4 +39,5 @@ mongoose
     console.log(err.message);
   });
 
-module.exports = serverless(app);
+const handler = serverless(app);
+module.exports = handler;
