@@ -1,6 +1,6 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import { isAuth  } from '../utils/utils.js';
+import { isAuth } from '../utils/utils.js';
 import {
   getContent,
   getContentByTitle,
@@ -14,4 +14,5 @@ contentRouter.get('/movies', isAuth, expressAsyncHandler(getMovies));
 contentRouter.get('/series', isAuth, expressAsyncHandler(getSeries));
 contentRouter.get('/:title', isAuth, expressAsyncHandler(getContentByTitle));
 
-module.exports = contentRouter
+// module.exports = contentRouter
+export { contentRouter };
