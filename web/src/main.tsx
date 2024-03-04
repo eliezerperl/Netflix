@@ -4,12 +4,11 @@ import App from './App.tsx';
 import './index.css';
 import { axios } from '@/utils/imports.ts';
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:8080'
-    : 'https://elisnetflixapi.netlify.app/.netlify/functions';
+axios.defaults.baseURL = import.meta.env.DEV
+  ? 'http://localhost:8080'
+  : 'https://elisnetflixapi.netlify.app/.netlify/functions';
 console.log(axios.defaults.baseURL);
-console.log(process.env.NODE_ENV);
+console.log(import.meta.env.DEV);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
