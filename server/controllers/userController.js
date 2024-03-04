@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs';
-import User from '../models/User.js';
-import { generateToken } from '../utils/utils.js';
+const bcrypt = require('bcryptjs');
+const User = require('../models/User.js');
+const { generateToken } = require('../utils/utils.js');
 
 const signin = async (req, res) => {
   const { password: pwdFromWebsite, email } = req.body;
@@ -108,4 +108,4 @@ const refreshToken = async (req, res) => {
   res.status(401).send({ message: 'Invalid Request to Refresh Token' });
 };
 
-export { signin, signup, doesExist, addToList, removeFromList, refreshToken };
+module.exports = { signin, signup, doesExist, addToList, removeFromList, refreshToken };

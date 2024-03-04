@@ -1,14 +1,14 @@
-import express from 'express';
-import expressAsyncHandler from 'express-async-handler';
-import {
+const express = require('express');
+const expressAsyncHandler = require('express-async-handler');
+const {
   addToList,
   doesExist,
   refreshToken,
   removeFromList,
   signin,
   signup,
-} from '../controllers/userController.js';
-import { isAuth } from '../utils/utils.js';
+} = require('../controllers/userController.js');
+const { isAuth } = require('../utils/utils.js');
 
 const userRouter = express.Router();
 userRouter.post('/signup', expressAsyncHandler(signup));
@@ -18,5 +18,4 @@ userRouter.post('/addtolist', expressAsyncHandler(addToList));
 userRouter.post('/removefromlist', expressAsyncHandler(removeFromList));
 userRouter.post('/refresh-token', isAuth, expressAsyncHandler(refreshToken));
 
-// module.exports = userRouter;
-export { userRouter };
+module.exports = userRouter;

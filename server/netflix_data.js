@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
-export const genres = [
+const bcrypt = require('bcryptjs');
+const genres = [
   'Action',
   'Comedy',
   'Fantasy',
@@ -8,7 +8,7 @@ export const genres = [
   'Animation',
 ];
 
-export const listMovieNames = [
+const listMovieNames = [
   'Top picks for Movie',
   'Movies for your friend Steve',
   'Kid-Friendly Movies',
@@ -16,7 +16,7 @@ export const listMovieNames = [
   'Documentariy Movies',
   'Classic Movies',
 ];
-export const listSeriesNames = [
+const listSeriesNames = [
   'Top Series',
   'Crime Series',
   'Sci-Fi Series',
@@ -25,7 +25,7 @@ export const listSeriesNames = [
   'Period Series',
 ];
 
-export const data = {
+const data = {
   lists: [],
   users: [
     {
@@ -581,3 +581,5 @@ export const data = {
     },
   ],
 };
+
+module.exports = { genres, listMovieNames, listSeriesNames, data };

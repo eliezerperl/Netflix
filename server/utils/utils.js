@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export const generateToken = ({ _id, username, email, profilePicture }) => {
+const generateToken = ({ _id, username, email, profilePicture }) => {
   return jwt.sign(
     { _id, username, email, profilePicture },
     process.env.JWT_SECRET,
@@ -10,7 +10,7 @@ export const generateToken = ({ _id, username, email, profilePicture }) => {
   );
 };
 
-export const isAuth = (req, res, next) => {
+const isAuth = (req, res, next) => {
   const auth = req.headers.authorization;
   if (auth) {
     const token = req.headers.authorization.split(' ')[1];
@@ -23,3 +23,5 @@ export const isAuth = (req, res, next) => {
     });
   } else res.status(401).send({ message: 'No Token' });
 };
+
+module.exports = { generateToken, isAuth };

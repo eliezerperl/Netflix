@@ -1,12 +1,12 @@
-import Content from '../models/Content.js';
+const Content = require('../models/Content.js');
 
-export const getContent = async (req, res) => {
+const getContent = async (req, res) => {
   const content = await Content.find();
   if (!content) res.status(404).send();
   res.status(200).send(content);
 };
 
-export const getMovies = async (req, res) => {
+const getMovies = async (req, res) => {
   const movies = await Content.find({
     isSeries: false,
   });
@@ -14,7 +14,7 @@ export const getMovies = async (req, res) => {
   res.status(200).send(movies);
 };
 
-export const getSeries = async (req, res) => {
+const getSeries = async (req, res) => {
   const series = await Content.find({
     isSeries: true,
   });
@@ -22,7 +22,7 @@ export const getSeries = async (req, res) => {
   res.status(200).send(series);
 };
 
-export const getContentByTitle = async (req, res) => {
+const getContentByTitle = async (req, res) => {
   const { title } = req.params;
   const item = await Content.find({
     title,
@@ -30,3 +30,5 @@ export const getContentByTitle = async (req, res) => {
   if (!item) res.status(404).send();
   res.status(200).send(item);
 };
+
+module.exports = { getContent, getMovies, getSeries, getContentByTitle };

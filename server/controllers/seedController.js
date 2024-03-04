@@ -1,6 +1,6 @@
-import Content from '../models/Content.js';
-import User from '../models/User.js';
-import { data } from '../netflix_data.js';
+const Content = require('../models/Content.js');
+const User = require('../models/User.js');
+const data = require('../netflix_data.js');
 
 const seedData = async (req, res) => {
   await Content.deleteMany();
@@ -11,4 +11,4 @@ const seedData = async (req, res) => {
   res.status(201).send({ data: data });
 };
 
-export default seedData;
+module.exports = seedData;

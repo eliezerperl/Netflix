@@ -1,10 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import seedRouter from './routes/seedRouter.js';
-import userRouter from './routes/userRouter.js';
-import contentRouter from './routes/contentRouter.js';
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const seedRouter = require('./routes/seedRouter.js');
+const userRouter = require('./routes/userRouter.js');
+const contentRouter = require('./routes/contentRouter.js');
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
