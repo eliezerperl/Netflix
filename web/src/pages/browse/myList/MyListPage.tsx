@@ -1,12 +1,14 @@
 import { useStoreContext } from '@/utils/context/StoreContext';
 import BrowseItems from '../components/carousel/BrowseItems';
 import BrowseLayout from '@/utils/components/shared/BrowseLayout';
+import Title from '@/utils/components/shared/Title';
 
 const MyListPage = () => {
   const { state } = useStoreContext();
   const { userInfo } = state;
   return (
     <>
+      <Title title='My List'/>
       <BrowseLayout WithoutHero>
         <div
           className={` h-fit p-24 flex flex-col 

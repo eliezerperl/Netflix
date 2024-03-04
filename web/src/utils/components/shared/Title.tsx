@@ -8,7 +8,7 @@ const Title = ({ title }: Props) => {
   return (
     <>
       <Helmet>
-        <title>{title}</title>
+        <title>Netflix - {title}</title>
       </Helmet>
     </>
   );

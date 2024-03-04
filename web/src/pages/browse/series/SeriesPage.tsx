@@ -9,6 +9,7 @@ import {
   getError,
   requestContent,
 } from '@/lib/utils';
+import Title from '@/utils/components/shared/Title';
 
 const SeriesPage = () => {
   const { state } = useStoreContext();
@@ -49,6 +50,7 @@ const SeriesPage = () => {
   }, [userInfo]);
   return (
     <>
+      <Title title='Series'/>
       {randomSeries ? (
         <BrowseLayout contentTitle={randomSeries.title}>
           <ContentCollection

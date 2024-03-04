@@ -16,6 +16,7 @@ import AuthLayout from '@/utils/components/shared/AuthLayout';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import classNames from 'classnames';
+import Title from '@/utils/components/shared/Title';
 
 const UserRegisterSchema = z.object({
   username: z.coerce.string().min(1, { message: 'You must enter a username' }),
@@ -71,6 +72,8 @@ const RegisterForm = () => {
   });
 
   return (
+    <>
+      <Title title='Register'/>
     <AuthLayout className="bg-white">
       <article className="flex justify-center z-10 bg-black rounded-md shadow-2xl">
         <form
@@ -92,7 +95,7 @@ const RegisterForm = () => {
             )}
             {duplicateEmail && (
               <span className={'errorSpan'}>Email already exists</span>
-            )}
+              )}
           </section>
 
           <section className="inputSection">
@@ -111,10 +114,10 @@ const RegisterForm = () => {
               placeholder="Choose Password"
               className={classNames({ ['errorInput']: errors.password })}
               {...register('password')}
-            />
+              />
             {errors.password && (
               <span className={'errorSpan'}>{errors.password.message}</span>
-            )}
+              )}
           </section>
 
           <section className="inputSection">
@@ -138,6 +141,7 @@ const RegisterForm = () => {
         </form>
       </article>
     </AuthLayout>
+              </>
   );
 };
 

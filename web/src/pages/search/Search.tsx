@@ -4,6 +4,7 @@ import { toast, useEffect, useLocation, useState } from '@/utils/imports';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { Content } from '@/models/content';
 import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
+import Title from '@/utils/components/shared/Title';
 
 const Search = () => {
   const { state } = useStoreContext();
@@ -39,6 +40,7 @@ const Search = () => {
 
   return (
     <>
+      <Title title='Search'/>
       <BrowseLayout WithoutHero>
         <article className="grid grid-cols-4 gap-5 mt-20 mx-12">
           {content &&

@@ -3,6 +3,7 @@ import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { Content } from '@/models/content';
 import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
+import Title from '@/utils/components/shared/Title';
 
 const BrowseContentPage = () => {
   const { state } = useStoreContext();
@@ -26,6 +27,7 @@ const BrowseContentPage = () => {
 
   return (
     <>
+      {title && <Title title={title} />}
       {content && (
         <>
           <ContentPlayer contentURL={content?.movie} />

@@ -4,6 +4,7 @@ import { useStoreContext } from '@/utils/context/StoreContext';
 import { toast, useEffect, useState } from '@/utils/imports';
 import ContentCollection from '../components/ContentCollection';
 import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
+import Title from '@/utils/components/shared/Title';
 
 const FilmsPage = () => {
   const { state } = useStoreContext();
@@ -44,6 +45,7 @@ const FilmsPage = () => {
   }, [userInfo]);
   return (
     <>
+      <Title title='Films'/>
       {randomFilm ? (
         <BrowseLayout contentTitle={randomFilm.title}>
           <ContentCollection
