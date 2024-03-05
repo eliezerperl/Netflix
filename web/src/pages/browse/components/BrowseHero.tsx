@@ -2,17 +2,19 @@ import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 import { Content } from '@/models/content';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { toast, useEffect, useState } from '@/utils/imports';
+import { toast, useEffect, useRef, useState } from '@/utils/imports';
 import HeroActionBtns from './HeroActionBtns';
 
 type Props = {
   contentTitle?: string;
+  withoutActionBtns?: boolean;
 };
 
-const BrowseHero = ({ contentTitle }: Props) => {
+const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
   const { state } = useStoreContext();
   const { userInfo } = state;
   const [content, setContent] = useState<Content>();
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const getContent = async () => {
@@ -30,12 +32,34 @@ const BrowseHero = ({ contentTitle }: Props) => {
     getContent();
   }, [contentTitle, userInfo, userInfo?.token]);
 
+  const setPlayerVisible = () => {
+    if (imgRef.current) {
+      imgRef.current.style.display = 'none';
+    }
+  };
+
   return (
     <div className="w-full h-full relative">
-      {content && <ContentPlayer contentURL={content.trailer} hovered />}
-      <span className="absolute bottom-9 left-10">
-        {content && <HeroActionBtns size={54} content={content} />}
-      </span>
+      {content && (
+        <>
+          <img
+            className="absolute bottom-20"
+            ref={imgRef}
+            src={content.img}
+            alt={content.title}
+          />
+          <ContentPlayer
+            contentURL={content.trailer}
+            hovered
+            show={(ready: boolean) => ready && setPlayerVisible()}
+          />
+          {!withoutActionBtns && (
+            <span className="absolute bottom-9 left-10">
+              <HeroActionBtns size={54} content={content} />
+            </span>
+          )}
+        </>
+      )}
       {/* Color Transition bottom of hero */}
       <div className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-black to-transparent"></div>
     </div>
