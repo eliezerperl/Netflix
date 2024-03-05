@@ -30,7 +30,7 @@ const BrowseContentPage = () => {
       {title && <Title title={title} />}
       {content && (
         <>
-          <ContentPlayer contentURL={content?.movie} />
+          <ContentPlayer contentURL={content?.movie} hovered />
         </>
       )}
     </>

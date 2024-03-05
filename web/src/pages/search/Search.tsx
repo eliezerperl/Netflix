@@ -42,7 +42,7 @@ const Search = () => {
     <>
       <Title title='Search'/>
       <BrowseLayout WithoutHero>
-        <article className="grid grid-cols-4 gap-5 mt-20 mx-12">
+        <article className="grid grid-cols-4 gap-5 mb-16 mt-20 mx-12">
           {content &&
             content.map((cont) => (
               <div key={cont.title}>

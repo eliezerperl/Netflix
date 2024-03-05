@@ -42,14 +42,14 @@ const BrowseItemsCollection = () => {
 
   return (
     <>
-      <BrowseItems
-        carouselTitle="Content"
-        carouselContent={content.allContent}
-      />
-
-      <BrowseItems carouselTitle="Series" carouselContent={content.series} />
-
-      <BrowseItems carouselTitle="Films" carouselContent={content.films} />
+      <div className="mb-16">
+        <BrowseItems
+          carouselTitle="Content"
+          carouselContent={content.allContent}
+        />
+        <BrowseItems carouselTitle="Series" carouselContent={content.series} />
+        <BrowseItems carouselTitle="Films" carouselContent={content.films} />
+      </div>
     </>
   );
 };

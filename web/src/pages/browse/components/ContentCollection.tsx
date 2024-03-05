@@ -10,11 +10,13 @@ type Props = {
 const ContentCollection = ({ contentType, content, topRated }: Props) => {
   return (
     <>
-      <BrowseItems
-        carouselTitle={`All ${contentType}`}
-        carouselContent={content}
-      />
-      <BrowseItems carouselTitle="Top Rated" carouselContent={topRated} />
+      <div className="mb-16">
+        <BrowseItems
+          carouselTitle={`All ${contentType}`}
+          carouselContent={content}
+        />
+        <BrowseItems carouselTitle="Top Rated" carouselContent={topRated} />
+      </div>
     </>
   );
 };

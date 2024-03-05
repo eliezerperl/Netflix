@@ -32,7 +32,7 @@ const BrowseHero = ({ contentTitle }: Props) => {
 
   return (
     <div className="w-full h-full relative">
-      {content && <ContentPlayer contentURL={content.trailer} />}
+      {content && <ContentPlayer contentURL={content.trailer} hovered />}
       <span className="absolute bottom-9 left-10">
         {content && <HeroActionBtns size={54} content={content} />}
       </span>
