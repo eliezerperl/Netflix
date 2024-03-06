@@ -37,12 +37,11 @@ const Search = () => {
     <>
       <Title title="Search" />
       <BrowseLayout WithoutHero>
-        <article className="grid grid-cols-4 gap-5 mb-16 mt-20 mx-12">
+        <div className='mx-20 mt-32 mb-10'>{searchText ? `Search Results for ${searchText}` : `All Content`}</div>
+        <article className="grid grid-cols-4 gap-10 mb-40 mx-12">
           {content &&
             content.map((cont) => (
-              <div key={cont.title}>
-                <BrowseItem content={cont} />
-              </div>
+                <BrowseItem key={cont.title} content={cont} />
             ))}
         </article>
       </BrowseLayout>
