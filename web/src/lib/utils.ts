@@ -44,17 +44,21 @@ export const isTokenInvalid = (user: UserDTO): boolean => {
 
 export const requestContent = async (
   userInfo: UserDTO | null,
-  apiRoute?: string | undefined
+  apiRoute?: string | undefined,
+  query?: string | undefined
 ): Promise<Content[] | undefined> => {
   if (!userInfo) return;
   if (userInfo && isTokenInvalid(userInfo)) return;
-
-  if (!apiRoute) apiRoute = '';
-  const { data } = await axios.get(`/api/v1/content/${apiRoute}`, {
-    headers: {
-      Authorization: `Bearer ${userInfo.token}`,
-    },
-  });
+if (!apiRoute) apiRoute = ''
+if (!query) query = ''
+  const { data } = await axios.get(
+    `/api/v1/content/${apiRoute + '/' + query}`,
+    {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+  );
   return data;
 };
 

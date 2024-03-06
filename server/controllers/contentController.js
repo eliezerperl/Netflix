@@ -31,4 +31,21 @@ const getContentByTitle = async (req, res) => {
   res.status(200).send(item);
 };
 
-module.exports = { getContent, getMovies, getSeries, getContentByTitle };
+const getContentBySearch = async (req, res) => {
+  const { query } = req.params;
+  const regex = new RegExp(query, 'i'); //includes anywhere in the string; for startsWith-new RegExp(`^${query}`, 'i')
+
+  const items = await Content.find({
+    $or: [{ genre: { $regex: regex } }, { title: { $regex: regex } }],
+  });
+  if (!items) res.status(404).send();
+  res.status(200).send(items);
+};
+
+module.exports = {
+  getContent,
+  getMovies,
+  getSeries,
+  getContentByTitle,
+  getContentBySearch,
+};

@@ -17,18 +17,13 @@ const Search = () => {
   useEffect(() => {
     const getContent = async () => {
       try {
-        const data = await requestContent(userInfo);
-        if (searchText && data) {
-          const regulatedSearctText = searchText.toLowerCase();
-          console.log(regulatedSearctText)
-          const filteredData = data.filter(
-            (content) =>
-              content.genre.toLowerCase().includes(regulatedSearctText) ||
-              content.title.toLowerCase().includes(regulatedSearctText)
-          );
-          console.log(filteredData)
-          setContent(filteredData);
-        } else setContent(data)
+        if (searchText) {
+          const data = await requestContent(userInfo, 'search', searchText);
+          setContent(data);
+        } else {
+          const data = await requestContent(userInfo);
+          setContent(data);
+        }
       } catch (error) {
         const axiosError = error as AxiosError<CustomError>;
         toast.error(getError(axiosError));
@@ -36,11 +31,11 @@ const Search = () => {
     };
 
     getContent();
-  }, [searchText, userInfo]);
+  }, [searchText, userInfo, search]);
 
   return (
     <>
-      <Title title='Search'/>
+      <Title title="Search" />
       <BrowseLayout WithoutHero>
         <article className="grid grid-cols-4 gap-5 mb-16 mt-20 mx-12">
           {content &&

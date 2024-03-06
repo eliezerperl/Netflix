@@ -14,7 +14,6 @@ const BrowseItem = ({ content }: Props) => {
   const { state } = useStoreContext();
   const { userInfo } = state;
   const contenRef = useRef<HTMLDivElement>(null);
-  // const actionBtnsRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [hovered, setHovered] = useState<boolean>(false);
 
@@ -43,7 +42,6 @@ const BrowseItem = ({ content }: Props) => {
         <section
           onMouseLeave={setPlayerInvisible}
           style={{
-            // width: imgRef.current?.clientWidth, // Set width to match the image width
             height: imgHeight, // Set height to match the image height
           }}
           className={`transform transition-transform duration-500 hover:z-10 hover:scale-150`}>
@@ -54,7 +52,7 @@ const BrowseItem = ({ content }: Props) => {
             alt={content.title}
           />
 
-          <div className="invisible absolute -top-5 left-0" ref={contenRef}>
+          <div className="invisible absolute -top-4 left-0" ref={contenRef}>
             <ContentPlayer
               show={(ready: boolean) => ready && setPlayerVisible()}
               contentURL={content.trailer}
