@@ -49,10 +49,10 @@ export const requestContent = async (
 ): Promise<Content[] | undefined> => {
   if (!userInfo) return;
   if (userInfo && isTokenInvalid(userInfo)) return;
-if (!apiRoute) apiRoute = ''
-if (!query) query = ''
+  if (!apiRoute) apiRoute = '';
+  if (!query) query = '';
   const { data } = await axios.get(
-    `/api/v1/content/${apiRoute + '/' + query}`,
+    `/api/v1/content/${apiRoute}${'/' + query}`,
     {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
