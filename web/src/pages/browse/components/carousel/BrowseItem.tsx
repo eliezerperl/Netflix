@@ -37,8 +37,8 @@ const BrowseItem = ({ content }: Props) => {
   };
 
   return (
-    <Card className={`relative bg-transparent border-none`}>
-      <CardContent className="flex  items-center justify-center">
+    <Card className={`bg-transparent border-none`}>
+      <CardContent className="relative flex  items-center justify-center">
         <section
           onMouseLeave={setPlayerInvisible}
           style={{
@@ -61,7 +61,7 @@ const BrowseItem = ({ content }: Props) => {
           </div>
 
           <div
-            className={`w-full bg-black p-1 flex flex-col justify-between relative ${
+            className={`w-full bg-black p-1 relative ${
               !hovered && 'invisible'
             }`}>
             <section className="flex justify-between">

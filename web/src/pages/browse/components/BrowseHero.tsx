@@ -39,12 +39,6 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
       contentRef.current?.classList.replace('invisible', 'visible');
     }
   };
-  const setPlayerInvisible = () => {
-    if (imgRef.current) {
-      imgRef.current.style.display = '';
-      contentRef.current?.classList.replace('visible', 'invisible');
-    }
-  };
 
   return (
     <div className="w-full h-full relative">
@@ -61,7 +55,6 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
               contentURL={content.trailer}
               hovered
               show={(ready: boolean) => ready && setPlayerVisible()}
-              showThumb={(done: boolean) => done && setPlayerInvisible()}
             />
           </div>
           {!withoutActionBtns && (
