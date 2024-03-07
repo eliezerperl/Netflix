@@ -69,6 +69,7 @@ const LoginForm = () => {
 
       <section className="inputSection">
         <Input
+          type="password"
           placeholder="Password"
           className={classNames({ ['errorInput']: errors.password })}
           {...register('password')}

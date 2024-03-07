@@ -15,6 +15,7 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
   const { userInfo } = state;
   const [content, setContent] = useState<Content>();
   const imgRef = useRef<HTMLImageElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const getContent = async () => {
@@ -35,6 +36,13 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
   const setPlayerVisible = () => {
     if (imgRef.current) {
       imgRef.current.style.display = 'none';
+      contentRef.current?.classList.replace('invisible', 'visible');
+    }
+  };
+  const setPlayerInvisible = () => {
+    if (imgRef.current) {
+      imgRef.current.style.display = '';
+      contentRef.current?.classList.replace('visible', 'invisible');
     }
   };
 
@@ -48,20 +56,23 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
             src={content.img}
             alt={content.title}
           />
-          <ContentPlayer
-            contentURL={content.trailer}
-            hovered
-            show={(ready: boolean) => ready && setPlayerVisible()}
-          />
+          <div className="h-full invisible" ref={contentRef}>
+            <ContentPlayer
+              contentURL={content.trailer}
+              hovered
+              show={(ready: boolean) => ready && setPlayerVisible()}
+              showThumb={(done: boolean) => done && setPlayerInvisible()}
+            />
+          </div>
           {!withoutActionBtns && (
-            <span className="absolute bottom-9 left-10">
+            <span className="absolute bottom-40 left-10">
               <HeroActionBtns size={54} content={content} />
             </span>
           )}
         </>
       )}
       {/* Color Transition bottom of hero */}
-      <div className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-black to-transparent"></div>
+      <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-black to-transparent"></div>
     </div>
   );
 };

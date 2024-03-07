@@ -10,7 +10,6 @@ import {
   refreshToken,
 } from '@/lib/utils';
 import { REFRESH_TOKEN, USER_SIGNOUT } from '@/utils/actions/Actions';
-import Footer from '../footer/Footer';
 
 type Props = {
   contentTitle?: string;
@@ -61,7 +60,6 @@ const BrowseLayout = ({ contentTitle, children, WithoutHero }: Props) => {
         }`}>
         {!WithoutHero && <BrowseHero contentTitle={contentTitle} />}
         {children}
-        <Footer />
       </div>
     </>
   );

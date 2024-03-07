@@ -42,7 +42,7 @@ const BrowseItem = ({ content }: Props) => {
         <section
           onMouseLeave={setPlayerInvisible}
           style={{
-            height: imgHeight, // Set height to match the image height
+            height: imgHeight,
           }}
           className={`transform transition-transform duration-500 hover:z-10 hover:scale-150`}>
           <img

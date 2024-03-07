@@ -56,8 +56,6 @@ const RegisterForm = () => {
       storeDispatch({ type: USER_SIGNIN, payload: data });
       navigate('/browse');
     } catch (error) {
-      // const axiosError = error as AxiosError<CustomError>;
-      // toast.error(getError(axiosError));
       //Error that can happen here is only duplicated email
       setDuplicateEmail(true);
     }
@@ -73,75 +71,76 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Title title='Register'/>
-    <AuthLayout className="bg-white">
-      <article className="flex justify-center z-10 bg-black rounded-md shadow-2xl">
-        <form
-          className="flex flex-col gap-7 w-80 p-12"
-          onSubmit={handleSubmit(onSubmit)}>
-          <div className="text-3xl font-semibold py-3">Sign Up</div>
+      <Title title="Register" />
+      <AuthLayout className="bg-white">
+        <article className="flex justify-center z-10 bg-black rounded-md shadow-2xl">
+          <form
+            className="flex flex-col gap-7 w-80 p-12"
+            onSubmit={handleSubmit(onSubmit)}>
+            <div className="text-3xl font-semibold py-3">Sign Up</div>
 
-          <section className="inputSection">
-            {email && (
+            <section className="inputSection">
+              {email && (
+                <Input
+                  onClick={() => setDuplicateEmail(false)}
+                  defaultValue={email}
+                  className={classNames({ ['errorInput']: errors.email })}
+                  {...register('email')}
+                />
+              )}
+              {errors.email && (
+                <span className={'errorSpan'}>{errors.email.message}</span>
+              )}
+              {duplicateEmail && (
+                <span className={'errorSpan'}>Email already exists</span>
+              )}
+            </section>
+
+            <section className="inputSection">
               <Input
-                onClick={() => setDuplicateEmail(false)}
-                defaultValue={email}
-                className={classNames({ ['errorInput']: errors.email })}
-                {...register('email')}
+                placeholder="Name"
+                className={classNames({ ['errorInput']: errors.username })}
+                {...register('username')}
               />
-            )}
-            {errors.email && (
-              <span className={'errorSpan'}>{errors.email.message}</span>
-            )}
-            {duplicateEmail && (
-              <span className={'errorSpan'}>Email already exists</span>
+              {errors.username && (
+                <span className={'errorSpan'}>{errors.username.message}</span>
               )}
-          </section>
+            </section>
 
-          <section className="inputSection">
-            <Input
-              placeholder="Name"
-              className={classNames({ ['errorInput']: errors.username })}
-              {...register('username')}
-            />
-            {errors.username && (
-              <span className={'errorSpan'}>{errors.username.message}</span>
-            )}
-          </section>
-
-          <section className="inputSection">
-            <Input
-              placeholder="Choose Password"
-              className={classNames({ ['errorInput']: errors.password })}
-              {...register('password')}
+            <section className="inputSection">
+              <Input
+                type="password"
+                placeholder="Choose Password"
+                className={classNames({ ['errorInput']: errors.password })}
+                {...register('password')}
               />
-            {errors.password && (
-              <span className={'errorSpan'}>{errors.password.message}</span>
+              {errors.password && (
+                <span className={'errorSpan'}>{errors.password.message}</span>
               )}
-          </section>
+            </section>
 
-          <section className="inputSection">
-            <Input
-              placeholder="Profile Picture URL"
-              className={classNames({
-                ['errorInput']: errors.profilePicture,
-              })}
-              {...register('profilePicture')}
-            />
-            {errors.profilePicture && (
-              <span className={'errorSpan'}>
-                {errors.profilePicture.message}
-              </span>
-            )}
-          </section>
+            <section className="inputSection">
+              <Input
+                placeholder="Profile Picture URL"
+                className={classNames({
+                  ['errorInput']: errors.profilePicture,
+                })}
+                {...register('profilePicture')}
+              />
+              {errors.profilePicture && (
+                <span className={'errorSpan'}>
+                  {errors.profilePicture.message}
+                </span>
+              )}
+            </section>
 
-          <Button type="submit" className="bg-red-600">
-            Sign Up
-          </Button>
-        </form>
-      </article>
-    </AuthLayout>
-              </>
+            <Button type="submit" className="bg-red-600">
+              Sign Up
+            </Button>
+          </form>
+        </article>
+      </AuthLayout>
+    </>
   );
 };
 
