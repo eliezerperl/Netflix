@@ -50,15 +50,12 @@ export const requestContent = async (
   if (!userInfo) return;
   if (userInfo && isTokenInvalid(userInfo)) return;
   if (!apiRoute) apiRoute = '';
-  if (!query) query = '';
-  const { data } = await axios.get(
-    `/api/v1/content/${apiRoute}${'/' + query}`,
-    {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-  );
+  query ? (query = `/${query}`) : (query = '');
+  const { data } = await axios.get(`/api/v1/content/${apiRoute}${query}`, {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  });
   return data;
 };
 
