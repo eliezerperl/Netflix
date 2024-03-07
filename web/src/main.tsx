@@ -6,7 +6,7 @@ import { axios } from '@/utils/imports.ts';
 
 axios.defaults.baseURL = import.meta.env.DEV
   ? 'http://localhost:8080'
-  : import.meta.env.PLATFORM === 'vercel'
+  : import.meta.env.VITE_PLATFORM === 'vercel'
   ? 'https://netflix-6857.vercel.app'
   : 'https://elisnetflixapi.netlify.app/.netlify/functions';
 console.log('dev ' + import.meta.env.DEV);
