@@ -70,11 +70,9 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
             />
           </div>
           {!withoutActionBtns && (
-            <section className="absolute z-20 bottom-28 left-10 flex flex-col gap-3 items-center">
+            <section className="absolute z-20 bottom-44 left-10 flex flex-col gap-3 items-center">
               <img src={content.imgTitle} alt={content.title} width={400} />
-              <article
-                ref={descRef}
-                className="transition duration-300 max-w-80 line-clamp-4">
+              <article ref={descRef} className="max-w-80 line-clamp-4">
                 {content.description}
               </article>
               <span>
