@@ -16,6 +16,16 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
   const [content, setContent] = useState<Content>();
   const imgRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      // descRef.current?.classList.add('invisible');
+      if (descRef.current) {
+        descRef.current.style.display = 'none';
+      }
+    }, 4000);
+  }, []);
 
   useEffect(() => {
     const getContent = async () => {
@@ -51,6 +61,8 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
             alt={content.title}
           />
           <div className="h-full invisible" ref={contentRef}>
+            {/* overlay */}
+            {/* <div className="absolute top-16 left-0 w-full h-full bg-blue-300 z-20" /> */}
             <ContentPlayer
               contentURL={content.trailer}
               hovered
@@ -58,9 +70,17 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
             />
           </div>
           {!withoutActionBtns && (
-            <span className="absolute bottom-40 left-10">
-              <HeroActionBtns size={54} content={content} />
-            </span>
+            <section className="absolute bottom-28 left-10 flex flex-col gap-3 items-center">
+              <img src={content.imgTitle} alt={content.title} width={400} />
+              <article
+                ref={descRef}
+                className="transition duration-300 max-w-80 line-clamp-4">
+                {content.description}
+              </article>
+              <span>
+                <HeroActionBtns size={54} content={content} />
+              </span>
+            </section>
           )}
         </>
       )}

@@ -34,7 +34,6 @@ const BrowseContentPage = () => {
         <ContentPlayer
           contentURL={content.trailer}
           hovered
-          withoutOverlay
           withControls
         />
       )}
