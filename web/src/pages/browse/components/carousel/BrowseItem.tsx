@@ -52,7 +52,7 @@ const BrowseItem = ({ content }: Props) => {
             alt={content.title}
           />
 
-          <div className="invisible absolute -top-10 left-0" ref={contenRef}>
+          <div className={`invisible absolute -top-16 left-0 ${hovered && 'z-50'}`} ref={contenRef}>
             <article className='relative'>
               {/* overlay */}
               <div className="absolute top-0 left-0 w-full h-full bg-transparent z-50" />

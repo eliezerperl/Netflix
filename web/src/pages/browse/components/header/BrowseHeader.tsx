@@ -5,7 +5,7 @@ import BrowseHeaderIcons from './BrowseHeaderIcons';
 const BrowseHeader = () => {
   return (
     <>
-      <div className="fixed w-full z-30 h-14">
+      <div className="fixed w-full z-50 h-14">
         <Header className="">
           <article className="flex flex-grow justify-between items-center pl-10">
             <BrowseHeaderLinks />

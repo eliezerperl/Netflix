@@ -19,15 +19,6 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
   const descRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      // descRef.current?.classList.add('invisible');
-      if (descRef.current) {
-        descRef.current.style.display = 'none';
-      }
-    }, 4000);
-  }, []);
-
-  useEffect(() => {
     const getContent = async () => {
       try {
         const data = await requestContent(userInfo, contentTitle);
@@ -47,6 +38,11 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
     if (imgRef.current) {
       imgRef.current.style.display = 'none';
       contentRef.current?.classList.replace('invisible', 'visible');
+      setTimeout(() => {
+        if (descRef.current) {
+          descRef.current.style.display = 'none';
+        }
+      }, 4000);
     }
   };
 
