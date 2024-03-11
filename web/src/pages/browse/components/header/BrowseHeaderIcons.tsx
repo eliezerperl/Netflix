@@ -37,14 +37,13 @@ const BrowseHeaderIcons = () => {
   const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
-
     if (pathname.startsWith('/search') && !searchInputRef.current?.value)
       navigate('/search');
 
     if (searchText) {
       navigate(`/search?q=${searchText}`);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   useEffect(() => {
@@ -100,13 +99,10 @@ const BrowseHeaderIcons = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel className="cursor-default">
-            My Account
+            Notifications
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
+          <div className="h-32">No Notifications</div>
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -134,30 +130,35 @@ const BrowseHeaderIcons = () => {
             )}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => console.log(state)}>
-            Print State
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              if (userInfo) {
-                storeDispatch({
-                  type: 'TOKEN_TEST',
-                  payload: {
-                    _id: '65c63e95377de65503bd20c0',
-                    username: 'Eliezer Per',
-                    email: 'eliezerperl7@gmail.com',
-                    profilePicture: undefined,
-                    list: userInfo.list,
-                    token:
-                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
-                  },
-                });
-              }
-            }}>
-            change Token to invalid user data
-          </DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
+
+          {userInfo?.email !== 'eliezerperl7@gmail.com' ? (
+            <DropdownMenuItem>Demo</DropdownMenuItem>
+          ) : (
+            <>
+              <DropdownMenuItem onClick={() => console.log(state)}>
+                Print State
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  if (userInfo) {
+                    storeDispatch({
+                      type: 'TOKEN_TEST',
+                      payload: {
+                        _id: '65c63e95377de65503bd20c0',
+                        username: 'Eliezer Per',
+                        email: 'eliezerperl7@gmail.com',
+                        profilePicture: undefined,
+                        list: userInfo.list,
+                        token:
+                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM2M2U5NTM3N2RlNjU1MDNiZDIwYzAiLCJ1c2VybmFtZSI6IkVsaWV6ZXIgUGVybCIsImVtYWlsIjoiZWxpZXplcnBlcmw3QGdtYWlsLmNvbSIsImlhdCI6MTcwODYzMzcwMywiZXhwIjoxNzA4NjM0NjAzfQ.karUE_dNfAOhDX6_9i9iFBQlV7IHxUmtFYLDN4bf4Yc',
+                      },
+                    });
+                  }
+                }}>
+                change Token to invalid user data
+              </DropdownMenuItem>
+            </>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex justify-center">
             <Button onClick={signoutHandler}>Sign out</Button>
