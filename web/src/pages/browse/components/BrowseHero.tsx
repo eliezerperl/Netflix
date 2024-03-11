@@ -62,7 +62,7 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
           />
           <div className="h-full invisible" ref={contentRef}>
             {/* overlay */}
-            {/* <div className="absolute top-16 left-0 w-full h-full bg-blue-300 z-20" /> */}
+            <div className="absolute top-0 left-0 w-full h-full z-20" />
             <ContentPlayer
               contentURL={content.trailer}
               hovered
@@ -70,7 +70,7 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
             />
           </div>
           {!withoutActionBtns && (
-            <section className="absolute bottom-28 left-10 flex flex-col gap-3 items-center">
+            <section className="absolute z-20 bottom-28 left-10 flex flex-col gap-3 items-center">
               <img src={content.imgTitle} alt={content.title} width={400} />
               <article
                 ref={descRef}
