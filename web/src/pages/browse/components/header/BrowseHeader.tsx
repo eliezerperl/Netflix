@@ -12,8 +12,8 @@ const BrowseHeader = () => {
             <BrowseHeaderIcons />
           </article>
         </Header>
-                {/* Top Color Transition */}
-                <div className="absolute w-full top-14  h-8 bg-gradient-to-t from-transparent to-black"></div>
+        {/* Top Color Transition */}
+        <div className="absolute w-full top-14 h-28 bg-gradient-to-t from-transparent to-black"></div>
       </div>
     </>
   );
