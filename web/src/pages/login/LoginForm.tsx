@@ -47,46 +47,66 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<UserLoginSchemaType>({ resolver: zodResolver(UserLoginSchema) });
 
   return (
-    <form
-      className="flex flex-col gap-7 w-72 relative"
-      onSubmit={handleSubmit(onSubmit)}>
-      <div className="text-3xl font-semibold py-3">Sign In</div>
+    <>
+      <form
+        className="flex flex-col gap-6 w-72 relative"
+        onSubmit={handleSubmit(onSubmit)}>
+        <div className="text-3xl font-semibold py-3">Sign In</div>
 
-      <section className="inputSection">
-        <Input
-          placeholder="Email"
-          className={classNames({ ['errorInput']: errors.email })}
-          {...register('email')}
-        />
-        {errors.email && (
-          <span className={'errorSpan'}>{errors.email.message}</span>
-        )}
+        <section className="inputSection">
+          <Input
+            placeholder="Email"
+            className={classNames({ ['errorInput']: errors.email })}
+            {...register('email')}
+          />
+          {errors.email && (
+            <span className={'errorSpan'}>{errors.email.message}</span>
+          )}
+        </section>
+
+        <section className="inputSection">
+          <Input
+            type="password"
+            placeholder="Password"
+            className={classNames({ ['errorInput']: errors.password })}
+            {...register('password')}
+          />
+          {errors.password && (
+            <span className={'errorSpan'}>{errors.password.message}</span>
+          )}
+        </section>
+
+        <Button type="submit" className="bg-red-600 mt-3">
+          Sign In
+        </Button>
+
+        <a className="text-center" href="/forgot">
+          Forgot password?
+        </a>
+      </form>
+      <section className="flex flex-col gap-2 border p-4">
+        <div>
+          <strong>Email:</strong> demo@demo.com
+        </div>
+        <div>
+          <strong>Password:</strong> 12345
+        </div>
+        <Button
+          className="bg-red-600"
+          onClick={() => {
+            // Autofill form fields
+            setValue('email', 'demo@demo.com');
+            setValue('password', '12345');
+          }}>
+          Autofill
+        </Button>
       </section>
-
-      <section className="inputSection">
-        <Input
-          type="password"
-          placeholder="Password"
-          className={classNames({ ['errorInput']: errors.password })}
-          {...register('password')}
-        />
-        {errors.password && (
-          <span className={'errorSpan'}>{errors.password.message}</span>
-        )}
-      </section>
-
-      <Button type="submit" className="bg-red-600 mt-3">
-        Sign In
-      </Button>
-
-      <a className="text-center" href="/forgot">
-        Forgot password?
-      </a>
-    </form>
+    </>
   );
 };
 
