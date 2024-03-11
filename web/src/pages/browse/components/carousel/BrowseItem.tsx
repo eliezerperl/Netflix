@@ -52,34 +52,40 @@ const BrowseItem = ({ content }: Props) => {
             alt={content.title}
           />
 
-          <div className="invisible absolute -top-4 left-0" ref={contenRef}>
-            <ContentPlayer
-              show={(ready: boolean) => ready && setPlayerVisible()}
-              contentURL={content.trailer}
-              hovered={hovered}
-            />
-          </div>
+          <div className="invisible absolute -top-10 left-0" ref={contenRef}>
+            <article className='relative'>
+              {/* overlay */}
+              <div className="absolute top-0 left-0 w-full h-full bg-transparent z-50" />
+              <ContentPlayer
+                show={(ready: boolean) => ready && setPlayerVisible()}
+                contentURL={content.trailer}
+                hovered={hovered}
+              />
+            </article>
+            <div
+              className={`w-full bg-black p-1 relative ${
+                !hovered && 'invisible'
+              }`}>
+              <section className="flex justify-between">
+                {userInfo && (
+                  <>
+                    <ActionBtns content={content} myList={userInfo.list} />
+                  </>
+                )}
+                <Info
+                  onClick={() => setHovered(false)}
+                  contentToShow={content}
+                />
+              </section>
 
-          <div
-            className={`w-full bg-black p-1 relative ${
-              !hovered && 'invisible'
-            }`}>
-            <section className="flex justify-between">
-              {userInfo && (
-                <>
-                  <ActionBtns content={content} myList={userInfo.list} />
-                </>
-              )}
-              <Info onClick={() => setHovered(false)} contentToShow={content} />
-            </section>
-
-            <section className="text-white text-xs grid grid-cols-3">
-              <div className="flex col-span-1">{content.year}</div>
-              <div className="flex flex-col col-span-2">
-                <strong>Genre:</strong> {content.genre}
-                <strong>Duration:</strong> {content.duration}
-              </div>
-            </section>
+              <section className="text-white text-xs grid grid-cols-3">
+                <div className="flex col-span-1">{content.year}</div>
+                <div className="flex flex-col col-span-2">
+                  <strong>Genre:</strong> {content.genre}
+                  <strong>Duration:</strong> {content.duration}
+                </div>
+              </section>
+            </div>
           </div>
         </section>
       </CardContent>

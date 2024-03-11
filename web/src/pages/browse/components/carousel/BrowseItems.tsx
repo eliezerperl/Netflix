@@ -16,7 +16,7 @@ type Props = {
 
 const BrowseItems = ({ carouselTitle, carouselContent, className }: Props) => {
   return (
-    <div className={`px-16 py-14 ${className}`}>
+    <div className={`px-16 py-12 ${className}`}>
       <div className='text-3xl pb-4'>{carouselTitle && carouselTitle}</div>
       <Carousel
         opts={{
