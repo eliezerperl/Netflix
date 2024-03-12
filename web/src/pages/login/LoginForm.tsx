@@ -8,6 +8,7 @@ import {
 } from '@/utils/actions/Actions';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import {
+  Link,
   SubmitHandler,
   axios,
   toast,
@@ -102,9 +103,9 @@ const LoginForm = () => {
 
         <CompletAuthBtn btnText="Sign In" loading={state.loading} />
 
-        <a className="text-center" href="/forgot">
-          Forgot password?
-        </a>
+        <section className="flex justify-center">
+          <Link to="/forgot">Forgot password?</Link>
+        </section>
       </form>
       <section className="flex flex-col gap-2 border p-4">
         <div>

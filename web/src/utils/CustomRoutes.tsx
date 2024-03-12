@@ -11,6 +11,7 @@ import Search from '@/pages/search/Search';
 import BrowseHeader from '@/pages/browse/components/header/BrowseHeader';
 import { useStoreContext } from './context/StoreContext';
 import Header from './components/header/Header';
+import Forgot from '@/pages/forgot/Forgot';
 
 const CustomRoutes = () => {
   const { state } = useStoreContext();
@@ -29,6 +30,7 @@ const CustomRoutes = () => {
         <Route path="/browse/films" element={<FilmsPage />}></Route>
         <Route path="/browse/my-list" element={<MyListPage />}></Route>
         <Route path="/search" element={<Search />}></Route>
+        <Route path="/forgot" element={<Forgot />}></Route>
       </Routes>
     </BrowserRouter>
   );
