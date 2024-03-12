@@ -2,21 +2,18 @@ import { Content } from '@/models/content';
 import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { toast, useEffect, useState } from '@/utils/imports';
-import ContentCollection from '../components/ContentCollection';
 import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 import Title from '@/utils/components/shared/Title';
+import BrowseItemsCollection from '../BrowseItemsCollection';
+import { CarouselContent } from '@/models/carouselContent';
 
 const FilmsPage = () => {
   const { state } = useStoreContext();
   const { userInfo } = state;
   const [randomFilm, setRandomFilm] = useState<Content>();
-  const [filmsCarousels, setFilmsCarousels] = useState<{
-    allFilms: Content[];
-    topRated: Content[];
-  }>({
-    allFilms: [],
-    topRated: [],
-  });
+  const [filmsCarousels, setFilmsCarousels] = useState<
+    CarouselContent[] | null
+  >(null);
 
   useEffect(() => {
     const getContent = async () => {
@@ -30,10 +27,11 @@ const FilmsPage = () => {
           setRandomFilm(random);
 
           const topFilms: Content[] = data.slice(-10);
-          setFilmsCarousels({
-            allFilms: content,
-            topRated: topFilms,
-          });
+
+          setFilmsCarousels([
+            { carouselTitle: 'Films', carouselContent: data },
+            { carouselTitle: 'Top Rated', carouselContent: topFilms },
+          ]);
         }
       } catch (error) {
         const axiosError = error as AxiosError<CustomError>;
@@ -45,17 +43,11 @@ const FilmsPage = () => {
   }, [userInfo]);
   return (
     <>
-      <Title title='Films'/>
-      {randomFilm ? (
+      <Title title="Films" />
+      {randomFilm && (
         <BrowseLayout contentTitle={randomFilm.title}>
-          <ContentCollection
-            contentType="Films"
-            content={filmsCarousels.allFilms}
-            topRated={filmsCarousels.topRated}
-          />
+          <BrowseItemsCollection carouselContents={filmsCarousels} />
         </BrowseLayout>
-      ) : (
-        <BrowseLayout>Invalid</BrowseLayout>
       )}
     </>
   );
