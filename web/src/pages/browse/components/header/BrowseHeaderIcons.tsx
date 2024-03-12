@@ -62,7 +62,7 @@ const BrowseHeaderIcons = () => {
   };
 
   return (
-    <section className="flex items-center justify-end gap-2">
+    <section className="flex items-center justify-end gap-2 w-96 h-12">
       <Accordion type="single" collapsible>
         <AccordionItem
           value="item-1"
