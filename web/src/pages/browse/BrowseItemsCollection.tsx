@@ -9,16 +9,19 @@ type Props = {
 const BrowseItemsCollection = ({ carouselContents }: Props) => {
   return (
     <div className="relative">
-      <div className="absolute -top-44 flex flex-col gap-24 z-30">
+      <div className="absolute -top-44 z-30">
+        <article className=' flex flex-col gap-24 mb-40'>
+
         {carouselContents &&
           carouselContents.map((carousel) => (
             <section key={carousel.carouselTitle}>
               <BrowseItems
                 carouselTitle={carousel.carouselTitle}
                 carouselContent={carousel.carouselContent}
-              />
+                />
             </section>
           ))}
+          </article>
         <Footer />
       </div>
     </div>

@@ -64,7 +64,7 @@ const BrowseItem = ({ content }: Props) => {
             </article>
             <div
               className={`w-full bg-black p-1 relative ${
-                !hovered && 'invisible'
+                !hovered ? 'invisible' : 'visible'
               }`}>
               <section className="flex justify-between">
                 {userInfo && (

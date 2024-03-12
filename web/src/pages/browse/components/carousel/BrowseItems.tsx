@@ -9,7 +9,7 @@ import BrowseItem from './BrowseItem';
 import { Content } from '@/models/content';
 
 type Props = {
-  carouselTitle: string;
+  carouselTitle?: string;
   carouselContent: Content[];
   className?: string;
 };
@@ -17,7 +17,7 @@ type Props = {
 const BrowseItems = ({ carouselTitle, carouselContent, className }: Props) => {
   return (
     <div className={`px-16 ${className}`}>
-      <div className="text-3xl pb-3">{carouselTitle}</div>
+      <div className="text-3xl pb-3">{carouselTitle && carouselTitle}</div>
       <Carousel
         opts={{
           align: 'start',
