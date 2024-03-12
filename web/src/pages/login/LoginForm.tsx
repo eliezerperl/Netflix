@@ -1,6 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { USER_SIGNIN } from '@/utils/actions/Actions';
+import {
+  GET_FAIL,
+  GET_REQUEST,
+  GET_SUCCESS,
+  USER_SIGNIN,
+} from '@/utils/actions/Actions';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import {
   SubmitHandler,
@@ -8,10 +13,14 @@ import {
   toast,
   useForm,
   useNavigate,
+  useReducer,
 } from '@/utils/imports';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import classNames from 'classnames';
+import fetchReducer from '@/utils/reducers/fetchReducer';
+import { LoadingState } from '@/models/store';
+import CompletAuthBtn from '@/utils/components/shared/CompletAuthBtn';
 
 const UserLoginSchema = z.object({
   email: z.coerce
@@ -27,21 +36,28 @@ const LoginForm = () => {
   const { dispatch: storeDispatch } = useStoreContext();
   const navigate = useNavigate();
 
+  const initialState: LoadingState = {
+    loading: false,
+    error: '',
+  };
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
+
   const onSubmit: SubmitHandler<UserLoginSchemaType> = async ({
     email,
     password,
   }) => {
     try {
-      //dispatch get request
+      dispatch({ type: GET_REQUEST });
       const { data } = await axios.post('/api/v1/users/signin', {
         email,
         password,
       });
-      //dispatch get succes
+      dispatch({ type: GET_SUCCESS });
+
       storeDispatch({ type: USER_SIGNIN, payload: data });
       navigate('/browse');
     } catch (error) {
-      //dispatch get fail
+      dispatch({ type: GET_FAIL, payload: 'the request to login failed' });
       console.log(error);
       toast.error('Wrong Credenetials');
     }
@@ -84,9 +100,7 @@ const LoginForm = () => {
           )}
         </section>
 
-        <Button type="submit" className="bg-red-600 mt-3">
-          Sign In
-        </Button>
+        <CompletAuthBtn btnText="Sign In" loading={state.loading} />
 
         <a className="text-center" href="/forgot">
           Forgot password?

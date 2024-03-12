@@ -4,19 +4,26 @@ import {
   useNavigate,
   SubmitHandler,
   useForm,
-  // toast,
   useState,
+  useReducer,
 } from '@/utils/imports';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { useStoreContext } from '@/utils/context/StoreContext';
-import { USER_SIGNIN } from '@/utils/actions/Actions';
+import {
+  GET_FAIL,
+  GET_REQUEST,
+  GET_SUCCESS,
+  USER_SIGNIN,
+} from '@/utils/actions/Actions';
 import AuthLayout from '@/utils/components/shared/AuthLayout';
 // import { CustomError, getError, AxiosError } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import classNames from 'classnames';
 import Title from '@/utils/components/shared/Title';
+import fetchReducer from '@/utils/reducers/fetchReducer';
+import { LoadingState } from '@/models/store';
+import CompletAuthBtn from '@/utils/components/shared/CompletAuthBtn';
 
 const UserRegisterSchema = z.object({
   username: z.coerce.string().min(1, { message: 'You must enter a username' }),
@@ -42,6 +49,12 @@ const RegisterForm = () => {
   const location = useLocation();
   const email = new URLSearchParams(location.search).get('email');
 
+  const initialState: LoadingState = {
+    loading: false,
+    error: '',
+  };
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
+
   const onSubmit: SubmitHandler<UserRegisterSchemaType> = async ({
     username,
     email,
@@ -49,16 +62,19 @@ const RegisterForm = () => {
     profilePicture,
   }) => {
     try {
+      dispatch({ type: GET_REQUEST });
       const { data } = await axios.post('/api/v1/users/signup', {
         username,
         email,
         password,
         profilePicture,
       });
+      dispatch({ type: GET_SUCCESS });
 
       storeDispatch({ type: USER_SIGNIN, payload: data });
       navigate('/browse');
     } catch (error) {
+      dispatch({ type: GET_FAIL, payload: 'the request to register failed' });
       //Error that can happen here is only duplicated email
       setDuplicateEmail(true);
     }
@@ -87,6 +103,7 @@ const RegisterForm = () => {
                 <Input
                   onClick={() => setDuplicateEmail(false)}
                   defaultValue={email}
+                  disabled
                   className={classNames({ ['errorInput']: errors.email })}
                   {...register('email')}
                 />
@@ -137,9 +154,7 @@ const RegisterForm = () => {
               )}
             </section>
 
-            <Button type="submit" className="bg-red-600">
-              Sign Up
-            </Button>
+            <CompletAuthBtn btnText="Sign Up" loading={state.loading} />
           </form>
         </article>
       </AuthLayout>

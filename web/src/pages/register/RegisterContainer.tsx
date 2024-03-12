@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ChevronRight } from 'lucide-react';
 import {
@@ -7,10 +6,15 @@ import {
   toast,
   useForm,
   useNavigate,
+  useReducer,
 } from '@/utils/imports';
 import { z } from 'zod';
 import classNames from 'classnames';
 import { zodResolver } from '@hookform/resolvers/zod';
+import CompletAuthBtn from '@/utils/components/shared/CompletAuthBtn';
+import { GET_FAIL, GET_REQUEST, GET_SUCCESS } from '@/utils/actions/Actions';
+import fetchReducer from '@/utils/reducers/fetchReducer';
+import { LoadingState } from '@/models/store';
 
 const UserStartRegistrationSchema = z.object({
   email: z.coerce
@@ -26,15 +30,27 @@ type UserStartRegistrationSchemaType = z.infer<
 const RegisterContainer = () => {
   const navigate = useNavigate();
 
+  const initialState: LoadingState = {
+    loading: false,
+    error: '',
+  };
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
+
   const onSubmit: SubmitHandler<UserStartRegistrationSchemaType> = async ({
     email,
   }) => {
     //check if email exists in db
     try {
+      dispatch({ type: GET_REQUEST });
       await axios.post(`/api/v1/users/doesexist`, {
         email,
       });
+      dispatch({ type: GET_SUCCESS });
     } catch (error) {
+      dispatch({
+        type: GET_FAIL,
+        payload: 'the request to start register failed',
+      });
       toast.error(`${email} is already registered with an existing account`);
       return;
     }
@@ -69,9 +85,10 @@ const RegisterContainer = () => {
           {errors.email && (
             <span className={'errorSpan left-4'}>{errors.email.message}</span>
           )}
-          <Button className="bg-red-600" type="submit">
-            Get Started <ChevronRight />
-          </Button>
+
+          <CompletAuthBtn btnText="Get Started" loading={state.loading}>
+            <ChevronRight />
+          </CompletAuthBtn>
         </form>
       </div>
     </>
