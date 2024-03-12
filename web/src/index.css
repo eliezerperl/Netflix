@@ -76,4 +76,19 @@
   body {
     @apply bg-background text-foreground;
   }
+  .errorSpan {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    color: var(--error-color);
+  }
+  .errorInput {
+    border-color: var(--error-color) !important;
+  }
+  .inputSection {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

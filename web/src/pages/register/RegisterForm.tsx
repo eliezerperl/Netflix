@@ -20,7 +20,10 @@ import Title from '@/utils/components/shared/Title';
 
 const UserRegisterSchema = z.object({
   username: z.coerce.string().min(1, { message: 'You must enter a username' }),
-  email: z.coerce.string().email({ message: 'Invalid email address' }),
+  email: z.coerce
+    .string()
+    .min(1, { message: 'You must enter an email' })
+    .email({ message: 'Invalid email address' }),
   password: z.coerce.string().min(1, { message: 'You must enter a password' }),
   profilePicture: z
     .string()

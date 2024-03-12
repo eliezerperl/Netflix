@@ -14,7 +14,10 @@ import { z } from 'zod';
 import classNames from 'classnames';
 
 const UserLoginSchema = z.object({
-  email: z.coerce.string().email({ message: 'Invalid email address' }),
+  email: z.coerce
+    .string()
+    .min(1, { message: 'You must enter an email' })
+    .email({ message: 'Invalid email address' }),
   password: z.coerce.string().min(1, { message: 'You must enter a password' }),
 });
 
