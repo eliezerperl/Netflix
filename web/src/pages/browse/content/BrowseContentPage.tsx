@@ -4,6 +4,7 @@ import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import { AxiosError, CustomError, getError, requestContent } from '@/lib/utils';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import { Content } from '@/models/content';
+import BrowseLayout from '@/utils/components/shared/BrowseLayout';
 
 const BrowseContentPage = () => {
   const { title } = useParams();
@@ -30,13 +31,11 @@ const BrowseContentPage = () => {
   return (
     <>
       {title && <Title title={title} />}
-      {content && (
-        <ContentPlayer
-          contentURL={content.trailer}
-          hovered
-          withControls
-        />
-      )}
+      <BrowseLayout>
+        {content && (
+          <ContentPlayer contentURL={content.trailer} hovered withControls />
+        )}
+      </BrowseLayout>
     </>
   );
 };
