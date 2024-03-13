@@ -70,7 +70,7 @@ const BrowseItem = ({ content }: Props) => {
               />
             </article>
             <div
-              className={`w-full bg-black p-1 absolute -bottom-20 ${
+              className={`w-full bg-black p-1 ${
                 !hovered ? 'invisible' : 'visible'
               }`}>
               <section className="flex justify-between">
