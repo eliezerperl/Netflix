@@ -27,7 +27,7 @@ const BrowseItems = ({ carouselTitle, carouselContent, className }: Props) => {
           {carouselContent.map((content, index) => (
             <CarouselItem
               key={index}
-              className="sm:basis-1/3 md:basis-1/4 lg:basis-1/6">
+              className="sm:basis-1/3 md:basis-1/4 lg:basis-1/6 h-max">
               <BrowseItem content={content} />
             </CarouselItem>
           ))}
