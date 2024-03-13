@@ -31,7 +31,7 @@ const BrowseContentPage = () => {
   return (
     <>
       {title && <Title title={title} />}
-      <BrowseLayout>
+      <BrowseLayout WithoutHero>
         {content && (
           <ContentPlayer contentURL={content.trailer} hovered withControls />
         )}
