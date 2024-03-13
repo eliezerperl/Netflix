@@ -20,11 +20,11 @@ const BrowseHeader = () => {
   useEffect(() => {
     if (!legalPathnames.includes(pathname)) {
       setTimeout(() => {
-        browseHeaderRef.current?.classList.add('invisible');
+        browseHeaderRef.current?.classList.add('opacity-0');
       }, 2000);
     }
     if (legalPathnames.includes(pathname)) {
-      browseHeaderRef.current?.classList.remove('invisible');
+      browseHeaderRef.current?.classList.remove('opacity-0');
     }
   }, [pathname]);
 
@@ -32,20 +32,20 @@ const BrowseHeader = () => {
     <>
       <div
         ref={browseHeaderRef}
-        className={`fixed w-full z-50 h-14`}>
-        <Header>
+        className={`fixed w-full z-50 h-14 transition-opacity duration-500 hover:opacity-100`}>
+        <Header className=''>
           <article className="flex flex-grow justify-between items-center pl-10">
             <BrowseHeaderLinks />
             <BrowseHeaderIcons />
           </article>
         </Header>
-        {/* Top Color Transition */}
-        <div className="absolute w-full top-14 h-28 bg-gradient-to-t from-transparent to-black"></div>
       </div>
+        {/* Top Color Transition */}
+        <div className="absolute w-full top-0 h-60 bg-gradient-to-t from-transparent to-black z-40"></div>
       {!legalPathnames.includes(pathname) && (
         <ArrowLeftIcon
           onClick={() => navigate(-1)}
-          className="absolute top-20 left-5 cursor-pointer"
+          className="absolute top-20 left-5 cursor-pointer z-50"
         />
       )}
     </>
