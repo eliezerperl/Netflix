@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Content } from '@/models/content';
-import { useRef, useState } from '@/utils/imports';
+import { useEffect, useRef, useState } from '@/utils/imports';
 import { useStoreContext } from '@/utils/context/StoreContext';
 import ContentPlayer from '@/utils/components/shared/ContentPlayer';
 import ActionBtns from './ActionBtns';
@@ -16,6 +16,11 @@ const BrowseItem = ({ content }: Props) => {
   const contenRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [hovered, setHovered] = useState<boolean>(false);
+  const [match, setMatch] = useState<number>(50);
+
+  useEffect(() => {
+    setMatch(Math.floor(Math.random() * 100));
+  }, []);
 
   //img Dimensions
   const imgHeight: number | undefined = imgRef.current?.height;
@@ -52,8 +57,10 @@ const BrowseItem = ({ content }: Props) => {
             alt={content.title}
           />
 
-          <div className={`invisible absolute -top-16 left-0 ${hovered && 'z-50'}`} ref={contenRef}>
-            <article className='relative'>
+          <div
+            className={`invisible absolute -top-16 left-0 ${hovered && 'z-50'}`}
+            ref={contenRef}>
+            <article className="relative">
               {/* overlay */}
               <div className="absolute top-0 left-0 w-full h-full bg-transparent z-50" />
               <ContentPlayer
@@ -78,9 +85,14 @@ const BrowseItem = ({ content }: Props) => {
                 />
               </section>
 
-              <section className="text-white text-xs grid grid-cols-3">
-                <div className="flex col-span-1">{content.year}</div>
-                <div className="flex flex-col col-span-2">
+              <section className="text-white text-xs grid grid-cols-5 p-2">
+                <div
+                  className={`flex col-span-2 items-center ${
+                    match > 60 ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                  {match}% Match
+                </div>
+                <div className="flex flex-col col-span-3">
                   <strong>Genre:</strong> {content.genre}
                   <strong>Duration:</strong> {content.duration}
                 </div>
