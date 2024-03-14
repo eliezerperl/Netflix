@@ -8,8 +8,9 @@ const BrowseHeader = () => {
   const browseHeaderRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log(pathname)
+  console.log(pathname);
   const legalPathnames: string[] = [
+    '/',
     '/browse',
     '/browse/series',
     '/browse/films',
@@ -33,15 +34,15 @@ const BrowseHeader = () => {
       <div
         ref={browseHeaderRef}
         className={`fixed w-full z-50 h-14 transition-opacity duration-500 hover:opacity-100`}>
-        <Header className=''>
+        <Header className="">
           <article className="flex flex-grow justify-between items-center pl-10">
             <BrowseHeaderLinks />
             <BrowseHeaderIcons />
           </article>
         </Header>
       </div>
-        {/* Top Color Transition */}
-        <div className="absolute w-full top-0 h-60 bg-gradient-to-t from-transparent to-black z-40"></div>
+      {/* Top Color Transition */}
+      <div className="absolute w-full top-0 h-60 bg-gradient-to-t from-transparent to-black z-40"></div>
       {!legalPathnames.includes(pathname) && (
         <ArrowLeftIcon
           onClick={() => navigate(-1)}
