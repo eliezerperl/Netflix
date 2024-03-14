@@ -78,7 +78,7 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
               <img src={content.imgTitle} alt={content.title} width={400} />
               <article
                 ref={descRef}
-                className={`max-w-80 line-clamp-4 transition duration-300 opacity-100 ${
+                className={`cursor-default max-w-80 line-clamp-4 transition duration-300 opacity-100 ${
                   !descHovered
                     ? descRef.current?.classList.add(
                         'absolute',
