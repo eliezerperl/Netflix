@@ -42,7 +42,7 @@ const Browse = () => {
   return (
     <>
       <Title title="Browse" />
-      <BrowseLayout contentTitle="Rick and Morty">
+      <BrowseLayout contentTitle="Inception">
         <BrowseItemsCollection carouselContents={content} />
       </BrowseLayout>
     </>

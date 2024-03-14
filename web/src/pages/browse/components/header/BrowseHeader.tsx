@@ -8,9 +8,7 @@ const BrowseHeader = () => {
   const browseHeaderRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log(pathname);
   const legalPathnames: string[] = [
-    '/',
     '/browse',
     '/browse/series',
     '/browse/films',
@@ -20,9 +18,7 @@ const BrowseHeader = () => {
 
   useEffect(() => {
     if (!legalPathnames.includes(pathname)) {
-      setTimeout(() => {
-        browseHeaderRef.current?.classList.add('opacity-0');
-      }, 2000);
+      browseHeaderRef.current?.classList.add('opacity-0');
     }
     if (legalPathnames.includes(pathname)) {
       browseHeaderRef.current?.classList.remove('opacity-0');

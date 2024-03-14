@@ -68,27 +68,27 @@ const Info = ({
               {<img src={contentToShow.imgThumb} alt={contentToShow.title} />}
             </div>
             <div className="bg-transparent absolute bottom-4 left-4 ">
-              {userInfo && <ActionBtns
-                squarePlay
-                size={32}
-                content={contentToShow}
-                myList={userInfo.list}
-              />}
+              {userInfo && (
+                <ActionBtns
+                  squarePlay
+                  size={32}
+                  content={contentToShow}
+                  myList={userInfo.list}
+                />
+              )}
             </div>
           </DialogHeader>
           <DialogTitle>{contentToShow.title}</DialogTitle>
           <DialogDescription className="grid grid-cols-6 gap-2">
-            <section className="col-span-4">
-              {contentToShow.description}
-            </section>
-            <section className="col-span-2 flex flex-col gap-2">
-              <article>
+            <div className="col-span-4">{contentToShow.description}</div>
+            <div className="col-span-2 flex flex-col gap-2">
+              <div>
                 <strong>Duration:</strong> <div>{contentToShow.duration}</div>
-              </article>
-              <article>
+              </div>
+              <div>
                 <strong>Genre:</strong> <div>{contentToShow.genre}</div>
-              </article>
-            </section>
+              </div>
+            </div>
           </DialogDescription>
         </DialogContent>
       </Dialog>
