@@ -14,6 +14,7 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
   const { state } = useStoreContext();
   const { userInfo } = state;
   const [content, setContent] = useState<Content>();
+  const [descHovered, setDescHovered] = useState<boolean>(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLElement>(null);
@@ -38,11 +39,15 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
     if (imgRef.current) {
       imgRef.current.style.display = 'none';
       contentRef.current?.classList.replace('invisible', 'visible');
-      setTimeout(() => {
-        if (descRef.current) {
-          descRef.current.style.display = 'none';
-        }
-      }, 4000);
+      // setTimeout(() => {
+      //   if (descRef.current) {
+      //     descRef.current.classList.add(
+      //       'absolute',
+      //       'translate-y-12',
+      //       'invisible'
+      //     );
+      //   }
+      // }, 8000);
     }
   };
 
@@ -66,9 +71,26 @@ const BrowseHero = ({ contentTitle, withoutActionBtns }: Props) => {
             />
           </div>
           {!withoutActionBtns && (
-            <section className="absolute z-20 bottom-44 left-10 flex flex-col gap-3 items-center">
+            <section
+              onMouseEnter={() => setDescHovered(true)}
+              onMouseLeave={() => setDescHovered(false)}
+              className="absolute z-20 bottom-44 left-10 flex flex-col gap-3 items-center">
               <img src={content.imgTitle} alt={content.title} width={400} />
-              <article ref={descRef} className="max-w-80 line-clamp-4">
+              <article
+                ref={descRef}
+                className={`max-w-80 line-clamp-4 transition duration-300 opacity-100 ${
+                  !descHovered
+                    ? descRef.current?.classList.add(
+                        'absolute',
+                        'translate-y-12',
+                        'invisible'
+                      )
+                    : descRef.current?.classList.remove(
+                        'absolute',
+                        'translate-y-12',
+                        'invisible'
+                      )
+                }`}>
                 {content.description}
               </article>
               <span>
