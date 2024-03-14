@@ -88,6 +88,9 @@ const Info = ({
               <div>
                 <strong>Genre:</strong> <div>{contentToShow.genre}</div>
               </div>
+              <div>
+                <strong>Year:</strong> <div>{contentToShow.year}</div>
+              </div>
             </div>
           </DialogDescription>
         </DialogContent>
