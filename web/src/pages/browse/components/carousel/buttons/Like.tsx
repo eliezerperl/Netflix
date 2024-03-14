@@ -1,5 +1,6 @@
 import { Content } from '@/models/content';
 import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
+import { toast } from '@/utils/imports';
 import { ThumbsUpIcon } from 'lucide-react';
 
 
@@ -15,7 +16,7 @@ const Like = ({ contentToLike, size }: Props) => {
 
         <ActionBtnWrapper
           tooltipText="I like this"
-          onClick={() => console.log(`You liked ${contentToLike.title}`)}>
+          onClick={() => toast.info(`You liked ${contentToLike.title}`)}>
           <ThumbsUpIcon size={size || 16} strokeWidth={1.5} color="white" />
         </ActionBtnWrapper>
 

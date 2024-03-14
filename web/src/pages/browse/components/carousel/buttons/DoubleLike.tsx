@@ -1,5 +1,6 @@
 import { Content } from '@/models/content';
 import ActionBtnWrapper from '@/utils/components/shared/ActionBtnWrapper';
+import { toast } from '@/utils/imports';
 import { CheckCheckIcon } from 'lucide-react';
 
 type Props = {
@@ -13,7 +14,7 @@ const DoubleLike = ({ contentToDoubleLike, size }: Props) => {
       <ActionBtnWrapper
         tooltipText="Love this!"
         onClick={() =>
-          console.log(`You really liked ${contentToDoubleLike.title}`)
+          toast.info(`You really liked ${contentToDoubleLike.title}`)
         }>
         <CheckCheckIcon size={size || 16} strokeWidth={1.5} color="white" />
       </ActionBtnWrapper>
