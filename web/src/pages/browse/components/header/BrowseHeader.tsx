@@ -8,7 +8,6 @@ const BrowseHeader = () => {
   const browseHeaderRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log(pathname);
   const legalPathnames: string[] = [
     '/browse',
     '/browse/series',

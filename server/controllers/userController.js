@@ -64,8 +64,6 @@ const doesExist = async (req, res) => {
 const addToList = async (req, res) => {
   const { userId, content } = req.body;
 
-  console.log(userId);
-  console.log(content);
   const newUser = await User.findByIdAndUpdate(userId, {
     $push: { list: content },
   });
@@ -78,8 +76,6 @@ const addToList = async (req, res) => {
 const removeFromList = async (req, res) => {
   const { userId, content } = req.body;
 
-  console.log(userId);
-  console.log(content);
   const newUser = await User.findByIdAndUpdate(userId, {
     $pull: { list: { _id: content._id } },
   });
@@ -108,4 +104,11 @@ const refreshToken = async (req, res) => {
   res.status(401).send({ message: 'Invalid Request to Refresh Token' });
 };
 
-module.exports = { signin, signup, doesExist, addToList, removeFromList, refreshToken };
+module.exports = {
+  signin,
+  signup,
+  doesExist,
+  addToList,
+  removeFromList,
+  refreshToken,
+};
