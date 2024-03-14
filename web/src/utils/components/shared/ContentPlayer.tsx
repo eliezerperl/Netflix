@@ -16,7 +16,6 @@ const ContentPlayer = ({ contentURL, hovered, show, withControls }: Props) => {
           <ReactPlayer
             url={`${contentURL}`}
             controls={withControls}
-            muted
             loop
             width={'100%'}
             height={'100%'}
