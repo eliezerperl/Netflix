@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -17,9 +17,9 @@ module.exports = {
       },
     },
     extend: {
-      backgroundImage: () => ({
+      backgroundImage: {
         hero: "url('/IL_netflix.jpg')",
-      }),
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
