@@ -9,6 +9,7 @@ axios.defaults.baseURL = import.meta.env.DEV
   : import.meta.env.VITE_PLATFORM === 'vercel'
   ? 'https://netflix-6857.vercel.app'
   : 'https://elisnetflixapi.netlify.app/.netlify/functions';
+  
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
