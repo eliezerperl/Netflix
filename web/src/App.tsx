@@ -9,7 +9,6 @@ function App() {
   return (
     <>
       <Analytics />
-
       <HelmetProvider>
         <StoreProvider>
           <ToastContainer position="top-right" />
